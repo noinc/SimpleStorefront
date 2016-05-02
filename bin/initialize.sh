@@ -7,6 +7,7 @@ ln -s SimpleStorefront public_html
 cd /home/vagrant/public_html
 
 echo -e "Setting up SSH.";
+chmod 700 ~/.ssh/id_rsa*
 eval $(ssh-agent -s)
 ssh-add
 

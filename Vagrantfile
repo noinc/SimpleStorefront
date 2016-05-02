@@ -66,6 +66,7 @@ chmod +x phpunit.phar
 mv phpunit.phar /usr/local/bin/phpunit
 
 echo "Restarting Apache"
+mkdir /home/vagrant/logs
 apache2ctl restart
 
 echo "Enabling mod-rewrite"
@@ -130,7 +131,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--cpus", 2]
     vb.gui = true
   end
-  
+
   # Copy over SimpleStorefront code to vagrant
   config.vm.synced_folder ".", "/home/vagrant/SimpleStorefront", type: "rsync", rsync__auto: false, rsync__exclude: [
    	".git/",
