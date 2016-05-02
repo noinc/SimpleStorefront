@@ -5,11 +5,11 @@ The goal of this training project is to provide a very basic storefront layout f
 ## System Requirements:
 	1. Vagrant- https://www.vagrantup.com/docs/installation/
 	2. Git- https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-	3. Rsync- https://alanbarber.com/2015/08/11/installing-rsync-on-windows/ (If using Windows.
+	3. Rsync- https://alanbarber.com/2015/08/11/installing-rsync-on-windows/ (If using Windows)
 
 ## Recommended Tools:
 	1. Zend Studio 13- http://www.zend.com/en/products/studio/downloads
-	2. Scipteden Bootstrap Builder- http://scripteden.com/builder/bootstrap/# (For quickly building sample templates.
+	2. Scipteden Bootstrap Builder- http://scripteden.com/builder/bootstrap/# (For quickly building sample templates)
 
 ## Some high level requirements are as follows:
 	System should represent a simple business
