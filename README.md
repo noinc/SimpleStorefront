@@ -1,24 +1,24 @@
-# ${1:My Simple Storefront}
+# My Simple Storefront
 --------------------
 The goal of this training project is to provide a very basic storefront layout for someone selling something.
 
-System Requirements:
+## System Requirements:
 	1. Vagrant- https://www.vagrantup.com/docs/installation/
 	2. Git- https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 	3. Rsync- https://alanbarber.com/2015/08/11/installing-rsync-on-windows/ (If using Windows.
 
-Recommended Tools:
+## Recommended Tools:
 	1. Zend Studio 13- http://www.zend.com/en/products/studio/downloads
 	2. Scipteden Bootstrap Builder- http://scripteden.com/builder/bootstrap/# (For quickly building sample templates.
 
-Some high level requirements are as follows:
+## Some high level requirements are as follows:
 	System should represent a simple business
 	System should allow for Admin to log in in order to maintain the inventory and product recipes
 	System should keep tracks of the business' current capital
 	System should maintain prices for inventory bought and products sold
 	System should allow guest users to buy products
 
-Instructions for running the project:
+## Instructions for running the project:
 	1. Start the vagrant box using the provided Vagrantfile: vagrant up
 	2. After the vagrant box starts, ssh into it: vagrant ssh
 	3. Inside the vagrant, run the initialize script: initialize
