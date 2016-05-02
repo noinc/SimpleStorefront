@@ -27,16 +27,16 @@ The goal of this training project is to provide a very basic storefront layout f
 	6. Open up a terminal to connect to the vagrant: http://192.168.33.10/
 
 
-The project is not finished, however.  The following is a list of tasks that ought to be completed:
-	Beginner:
+## The project is not finished, however.  The following is a list of tasks that ought to be completed:
+	### Beginner:
 		Add a Header with a Login/Logout button
 		Add another Recipe and list of Ingredients through data fixtures
 		Check to make sure Ingredients are in Stock before making a Product
-	Intermediate:
+	### Intermediate:
 		Add a Product image
 		Add in a stylized Login page
 		Add the Buy Ingredients Panel
-	Advanced:
+	### Advanced:
 		Add in a shopping cart/checkout system
 		Add in a CDN or Amazon S3 for image serving
 		Add in managers for Ingredients and Recipes
