@@ -1,68 +1,42 @@
-Symfony Standard Edition
-========================
+My Simple Storefront
+--------------------
+The goal of this training project is to provide a very basic storefront layout for someone selling something.
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+System Requirements:
+	1) Vagrant- https://www.vagrantup.com/docs/installation/
+	2) Git- https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+	3) Rsync- https://alanbarber.com/2015/08/11/installing-rsync-on-windows/ (If using Windows)
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+Recommended Tools:
+	1) Zend Studio 13- http://www.zend.com/en/products/studio/downloads
+	2) Scipteden Bootstrap Builder- http://scripteden.com/builder/bootstrap/# (For quickly building sample templates)
 
-What's inside?
---------------
+Some high level requirements are as follows:
+	System should represent a simple business
+	System should allow for Admin to log in in order to maintain the inventory and product recipes
+	System should keep tracks of the business' current capital
+	System should maintain prices for inventory bought and products sold
+	System should allow guest users to buy products
 
-The Symfony Standard Edition is configured with the following defaults:
+Instructions for running the project:
+	1) Start the vagrant box using the provided Vagrantfile: vagrant up
+	2) After the vagrant box starts, ssh into it: vagrant ssh
+	3) Inside the vagrant, run the initialize script: initialize
+	4) Inside the vagrant, run the fixtures script: fixtures
+	5) Inside the vagrant, run the clean script: clean
+	6) Open up a terminal to connect to the vagrant: http://192.168.33.10/
 
-  * An AppBundle you can use to start coding;
 
-  * Twig as the only configured template engine;
-
-  * Doctrine ORM/DBAL;
-
-  * Swiftmailer;
-
-  * Annotations enabled for everything.
-
-It comes pre-configured with the following bundles:
-
-  * **FrameworkBundle** - The core Symfony framework bundle
-
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/3.0/book/installation.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.0/book/doctrine.html
-[8]:  https://symfony.com/doc/3.0/book/templating.html
-[9]:  https://symfony.com/doc/3.0/book/security.html
-[10]: https://symfony.com/doc/3.0/cookbook/email.html
-[11]: https://symfony.com/doc/3.0/cookbook/logging/monolog.html
-[13]: https://symfony.com/doc/3.0/bundles/SensioGeneratorBundle/index.html
+The project is not finished, however.  The following is a list of tasks that ought to be completed:
+	Beginner:
+		Add a Header with a Login/Logout button
+		Add another Recipe and list of Ingredients through data fixtures
+		Check to make sure Ingredients are in Stock before making a Product
+	Intermediate:
+		Add a Product image
+		Add in a stylized Login page
+		Add the Buy Ingredients Panel
+	Advanced:
+		Add in a shopping cart/checkout system
+		Add in a CDN or Amazon S3 for image serving
+		Add in managers for Ingredients and Recipes
