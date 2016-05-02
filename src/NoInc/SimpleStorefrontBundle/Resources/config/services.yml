@@ -1,0 +1,4 @@
+services:
+#    no_inc_simple_storefront.example:
+#        class: NoInc\SimpleStorefrontBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

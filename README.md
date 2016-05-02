@@ -41,9 +41,6 @@ It comes pre-configured with the following bundles:
 
   * [**MonologBundle**][11] - Adds support for Monolog, a logging library
 
-  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing
-    library
-
   * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
     the web debug toolbar
 
@@ -61,12 +58,11 @@ released under the MIT or BSD license.
 
 Enjoy!
 
-[1]:  https://symfony.com/doc/2.7/book/installation.html
+[1]:  https://symfony.com/doc/3.0/book/installation.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.7/book/doctrine.html
-[8]:  https://symfony.com/doc/2.7/book/templating.html
-[9]:  https://symfony.com/doc/2.7/book/security.html
-[10]: https://symfony.com/doc/2.7/cookbook/email.html
-[11]: https://symfony.com/doc/2.7/cookbook/logging/monolog.html
-[12]: https://symfony.com/doc/2.7/cookbook/assetic/asset_management.html
-[13]: https://symfony.com/doc/2.7/bundles/SensioGeneratorBundle/index.html
+[7]:  https://symfony.com/doc/3.0/book/doctrine.html
+[8]:  https://symfony.com/doc/3.0/book/templating.html
+[9]:  https://symfony.com/doc/3.0/book/security.html
+[10]: https://symfony.com/doc/3.0/cookbook/email.html
+[11]: https://symfony.com/doc/3.0/cookbook/logging/monolog.html
+[13]: https://symfony.com/doc/3.0/bundles/SensioGeneratorBundle/index.html

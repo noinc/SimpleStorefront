@@ -1,0 +1,21 @@
+{% extends 'NoIncSimpleStorefrontBundle:Default:base.html.twig' %}
+
+{% block body %} 
+	<div class="item pricing" id="pricing_table1">
+		
+		<div class="container">
+		
+			<div class="row">
+			
+				{% for recipe in recipes %}
+				    {% include 'NoIncSimpleStorefrontBundle:Default:product-make.html.twig' with {'recipe': recipe} %}
+				{% endfor %}
+			
+			</div><!-- /.row -->
+		
+		</div><!-- /.container -->
+	
+	</div><!-- /.item -->
+	
+	{{ dump(recipes) }}
+{% endblock %}

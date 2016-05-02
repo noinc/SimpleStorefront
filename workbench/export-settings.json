@@ -1,0 +1,23 @@
+{
+    "export": "doctrine2-annotation",
+    "zip": false,
+    "dir": "src/NoInc/SimpleStorefrontBundle/Entity",
+    "params": {
+        "backupExistingFile": false,
+        "skipPluralNameChecking": false,
+        "enhanceManyToManyDetection": true,
+        "bundleNamespace": "NoInc\\SimpleStorefrontBundle",
+        "entityNamespace": "Entity",
+        "repositoryNamespace": "NoInc\\SimpleStorefrontBundle\\Repository",
+        "useAnnotationPrefix": "ORM\\",
+        "useAutomaticRepository": true,
+        "indentation": 4,
+        "filename": "%entity%.%extension%",
+        "quoteIdentifier": false,
+        "sortTablesAndViews": true,
+        "logToConsole": true,
+        "propertyTypehint": true,
+        "generateEntitySerialization": true,
+        "nullableAttribute": "always"
+    }
+}

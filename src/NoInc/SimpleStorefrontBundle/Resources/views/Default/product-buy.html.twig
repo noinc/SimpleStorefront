@@ -1,0 +1,39 @@
+<div class="col-md-4"> 
+<form action="{{ path('buy_product', {'recipe_id': recipe.id}) }}" method="post">
+
+	<div class="pricing1">
+	
+		<div class="top">
+		
+			<h2 class="editContent">{{ recipe.name }}</h2>
+			
+			<p class="price "><b class="editContent">${{ recipe.price }}</b></p>
+		
+		</div><!-- /.top -->
+		
+		
+		<div class="bottom">
+			
+			<div class="editContent">
+			<span>Ingredients</span>
+			<ul>
+				{% for recipeIngredient in recipe.recipeIngredients %}
+				<li><i>{{ recipeIngredient.quantity }} {{ recipeIngredient.ingredient.measure }}</i> of <b>{{ recipeIngredient.ingredient.name }}</b></li>
+				{% endfor %}
+			</ul>
+			</div><!-- /.editContent -->
+			
+			{% set remainingProducts = recipe.products|length %}
+			
+			{% if remainingProducts > 0 %}
+				<button type="submit" class="btn btn-lg btn-embossed btn-block btn-primary"><span class="fa"></span>Buy One</button>
+			{% endif %}
+			
+			<span>{{ remainingProducts }} Remaining</span>
+			
+		</div><!-- /.bottom -->
+	
+	</div><!-- /.pricing1 -->
+
+</form>
+</div><!-- /.col-md-4 col -->
