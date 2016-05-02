@@ -19,4 +19,3 @@ echo -e "Running composer install and update and bower installs";
 composer config --global discard-changes true
 composer install
 composer update
-php bin/console sp:bower:install
