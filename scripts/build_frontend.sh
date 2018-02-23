@@ -15,11 +15,11 @@ exitWithMessageOnError () {
 }
 
 echo -e "!!!!!!!!!!!!! Installing yarn dependencies"
-(cd src/NoInc/GenericApplication/ViewBundle && yarn)
+(cd src/NoInc/SimpleStorefront/ViewBundle && yarn)
 exitWithMessageOnError "yarn dependancy installation failed"
 
 echo -e "!!!!!!!!!!!!! Building frontend"
-gulp --gulpfile src/NoInc/GenericApplication/ViewBundle/gulpfile.js
+gulp --gulpfile src/NoInc/SimpleStorefront/ViewBundle/gulpfile.js
 exitWithMessageOnError "frontend build failed"
 
 exit 0
