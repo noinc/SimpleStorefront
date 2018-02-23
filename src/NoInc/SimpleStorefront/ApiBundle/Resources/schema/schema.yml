@@ -1,0 +1,18 @@
+annotationGenerators:
+- NoInc\SimpleStorefront\ApiBundle\Generator\DoctrineOrmAnnotationGenerator
+- NoInc\SimpleStorefront\ApiBundle\Generator\ApiPlatformCoreAnnotationGenerator
+- NoInc\SimpleStorefront\ApiBundle\Generator\SerializerGroupsAnnotationGenerator
+- ApiPlatform\SchemaGenerator\AnnotationGenerator\PhpDocAnnotationGenerator
+- ApiPlatform\SchemaGenerator\AnnotationGenerator\ConstraintAnnotationGenerator
+checkIsGoodRelations: false
+fieldVisibility: protected
+fluentMutatorMethods: true
+folders:
+- /../Resources/schema/entities/
+- /../Resources/schema/routing/
+namespaces:
+  entity: NoInc\SimpleStorefront\ApiBundle\Entity
+relations: ~
+id:
+  groups:
+  - output

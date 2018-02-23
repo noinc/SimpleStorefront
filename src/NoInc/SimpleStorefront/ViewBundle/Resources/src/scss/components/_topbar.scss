@@ -1,0 +1,97 @@
+body.search #topbar md-input-container md-icon {
+    color: black;
+    fill: black;
+}
+
+#loadingHXRBar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    background-color: $primary-color;
+
+    md-progress-linear .md-container {
+        background-color: transparent;
+    }
+}
+
+#topBar {
+    z-index: 100;
+    .md-toolbar-tools {
+        padding: 0;
+        z-index: 4;
+    }
+
+    md-toolbar {
+        background-color: $primary-color;
+    }
+
+    md-icon {
+        color: white;
+    }
+
+    .search-close {
+        md-icon {
+            color: black;
+        }
+    }
+
+    md-input-container {
+        padding: 0;
+        margin: 0;
+
+        &.md-input-focused {
+            md-icon {
+                color: black;
+                fill: black;
+            }
+
+            input {
+                color: rgba(0, 0, 0, .8);
+                background-color: rgba(255, 255, 255, .95);
+            }
+        }
+
+        md-icon {
+            top: 9px;
+            left: 10px;
+            color: white;
+        }
+
+        input {
+            background-color: rgba(255, 255, 255, .25);
+            border: none;
+            height: 40px;
+            padding: 5px 5px 5px 45px;
+            transition: .3s background-color $transition;
+            color: rgba(255, 255, 255, .8);
+        }
+
+        @include gt-md() {
+            margin-left: 0;
+        }
+
+        .md-errors-spacer {
+            min-height: 0px !important;
+        }
+    }
+
+    .page-title {
+        width: 230px;
+        color: white;
+        padding-left: 15px;
+        letter-spacing: 0.03em;
+
+        h1 {
+            line-height: 1.2em;
+        }
+
+        img {
+            height: 45px;
+            width: 45px;
+            margin-right: 15px;
+        }
+    }
+}

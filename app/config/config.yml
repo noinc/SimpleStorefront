@@ -1,8 +1,9 @@
 imports:
-    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: "@NoIncSimpleStorefrontBundle/Resources/config/services.yml" }
+    - { resource: Bundles/ApiPlatformBundle.yml }
+    - { resource: Bundles/SwiftmailerBundle.yml }
+    - { resource: "@NoIncSimpleStorefrontViewBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -11,7 +12,7 @@ parameters:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator: { fallbacks: [en] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -19,12 +20,13 @@ framework:
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
-    serializer:      { enable_annotations: true }
+    serializer:
+        enabled: true
+        enable_annotations: true
     templating:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
@@ -37,47 +39,43 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    paths:
+        "%kernel.root_dir%/../src/NoInc/SimpleStorefront/ViewBundle/Resources/views": NoIncSimpleStorefrontViewBundle
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
-
+        default_connection: default
+        connections:
+            default:
+                driver:   "%sql_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  "%sql_charset%"
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
-# Swiftmailer Configuration
-swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
-
-assetic:
-    debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
-    filters:
-        cssrewrite: ~
-
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    routing_loader:
+        default_format: json
+        include_format: false
 fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: NoInc\SimpleStorefrontBundle\Entity\User
+    db_driver:      orm
+    firewall_name:  main
+    user_class:     NoInc\SimpleStorefront\ApiBundle\Entity\User
+    use_listener:   true
     from_email:
-        address: test@noreply.org
-        sender_name: NoReply
+        address:        "SimpleStorefront@noinc.com"
+        sender_name:    "SimpleStorefront no reply"
+    registration:
+        confirmation:
+            enabled:    true
+
+
+

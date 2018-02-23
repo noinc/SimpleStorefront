@@ -1,0 +1,58 @@
+md-sidenav.md-sidenav-left(md-component-id="leftSidebar", md-is-locked-open="$mdMedia('gt-md')")
+    md-toolbar(hide-gt-md)
+        h2.md-toolbar-tools(ng-bind="$state.current.data.pageTitle")
+    md-list.md-dense(flex)  
+          
+        | {% if is_granted('ROLE_ADMIN') %}          
+        md-list-item(flex)
+            md-button(ui-sref="dashboard", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon home
+                p Admin Dashboard
+                      
+        md-list-item(flex)
+            md-button(ui-sref="allCourses", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon library_books
+                p Manage Courses
+        
+        md-list-item(flex)
+            md-button(ui-sref="allUsers", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon supervisor_account
+                p Manage Users
+                
+        md-list-item(flex)
+            md-button(ui-sref="allQuestionsAdmin", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon question_answer
+                p Manage Questions
+                
+        md-list-item(flex)
+            md-button(ng-click="startWorkflow('unanswered')", ng-disabled="!firstNewQuestionId", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon list_view
+                p Unanswered Workflow ({{'{{ newQuestions.length }}'}})
+
+        md-list-item(ng-if="needsApprovalQuestions.length", flex)
+            md-button(ng-click="startWorkflow('needsApproval')", ng-disabled="!firstNeedsApprovalQuestionId", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon list_view
+                p Need Approval Workflow ({{'{{ needsApprovalQuestions.length }}'}})
+        
+        | {% else %}
+        
+        md-list-item(flex)
+            md-button(ui-sref="allQuestions", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon question_answer
+                p My Questions
+
+        md-list-item(flex)
+            md-button(ng-click="startWorkflow('unanswered')", ng-disabled="!firstNewQuestionId", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon list_view
+                p Unanswered Workflow ({{'{{ newQuestions.length }}'}})
+
+        md-list-item(ng-if="needsApprovalQuestions.length", flex)
+            md-button(ng-click="startWorkflow('needsApproval')", ng-disabled="!firstNeedsApprovalQuestionId", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon list_view
+                p Need Approval Workflow ({{'{{ needsApprovalQuestions.length }}'}})
+
+        md-list-item(ng-if="!isAdmin", flex)
+            md-button(ui-sref="myCourses", ui-sref-active="active", layout="row", layout-align="start center")
+                md-icon library_books
+                p My Courses
+        | {% endif %}

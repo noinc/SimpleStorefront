@@ -1,0 +1,46 @@
+md-content.transparent.courses-table
+    md-content.transparent 
+        md-content.transparent 
+            div.loading-container(ng-if="loading", layout="column", layout-align="center center")
+                md-progress-circular(md-mode="indeterminate")
+            md-table-container(ng-if="courses.length && !loading") 
+                table(md-table, md-row-select="true", multiple="true", ng-model="selectedCourses", md-progress="allCoursesPromise").transparent
+                    caption.sr-only This table lists all courses in the FLVS system.
+                    thead(md-head) 
+                        tr(md-row) 
+                            th.timestamp(md-column) Name
+                            th.timestamp(md-column) FLVS ID
+                            th(md-column) Status
+                            th(md-column)
+                                div.header-action-buttons(flex, layout="row", layout-align="end center", ng-show="selectedCourses.length") 
+                                    span.sr-only Actions
+                                    md-button.md-icon-button(ng-click="publishSelected()") 
+                                        i.material-icons file_upload 
+                                        md-tooltip(md-direction="left") Publish Selected Courses
+                                    md-button.md-icon-button(ng-click="unpublishSelected()") 
+                                        i.material-icons file_download 
+                                        md-tooltip(md-direction="left") Unpublish Selected Courses
+                                    md-button.md-icon-button(ng-click="clearSelected()") 
+                                        i.material-icons clear 
+                                        md-tooltip(md-direction="left") Clear Selection
+                    tbody(md-body) 
+                        tr(md-row, md-select="course", md-select-id="id", ng-repeat="course in courses") 
+                            td(md-cell, ng-bind="course.displayName", ui-sref="addEditCourse({ courseID: course.id })")
+                            td(md-cell, ng-bind="course.name", ui-sref="addEditCourse({ courseID: course.id })")
+                            td(md-cell, ng-bind="course.isPublished ? 'Published' : 'Unpublished'", ui-sref="addEditCourse({ courseID: course.id })")
+                            td.show-on-hover(md-cell, layout="row", layout-align="end center")
+                                md-button.md-icon-button(ui-sref="addEditCourse({ courseID: course.id })") 
+                                    i.material-icons edit 
+                                    md-tooltip(md-direction="left") Manage Course
+                                md-button.md-icon-button(ng-click="changeCourseStatus(course, true)", ng-if="!course.isPublished")
+                                    i.material-icons file_upload 
+                                    md-tooltip(md-direction="left") Publish Course
+                                md-button.md-icon-button(ng-click="changeCourseStatus(course, false)", ng-if="course.isPublished")
+                                    i.material-icons file_download 
+                                    md-tooltip(md-direction="left") Unpublish Course 
+
+            md-table-pagination(ng-if="users.length", md-limit="query.limit", md-limit-options="[10, 20, 50, 100]", md-page="query.page", md-total="{{'{{  }}'}}", md-on-paginate="loadData", md-page-select) 
+             
+            div(flex, ng-if="!courses.length && !loading", layout-align="center center", layout-padding)  
+                h3.md-headline No courses are in the FLVS system. 
+                    md-button.md-raised.md-primary(ui-sref="addEditCourse({ courseID: 'new' })") Add a course

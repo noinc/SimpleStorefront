@@ -1,0 +1,10 @@
+# API Platform
+api_platform:
+    formats:
+        json:     ['application/json']
+        xml:      ['application/xml', 'text/xml']
+        html:     ['text/html']
+    collection:
+        pagination:
+            client_items_per_page: true
+            items_per_page_parameter_name: limit

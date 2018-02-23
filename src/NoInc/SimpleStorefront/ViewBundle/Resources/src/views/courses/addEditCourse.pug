@@ -1,0 +1,104 @@
+div.add-edit-page
+    md-content(layout-padding, layout="row")
+        div(flex="80")
+            h1.editable-text(ng-bind="courseData.displayName", ng-if="!editingName", ng-click="toggleName()", aria-label="Click to edit course name")
+            button.sr-only(ng-if="!editingName", ng-click="toggleName()") Edit Course Name
+            
+            ng-form(name="courseName", ng-if="editingName || !courseData.displayName", ng-submit="saveCourse()")
+                h1.md-headline Course Name
+                md-input-container.md-block(flex="100")
+                    label(for="question") Course Name
+                    input(id="name", required, name="name", ng-model="courseData.editedName")
+                    div(ng-messages="courseName.name.$error")
+                        div(ng-message="required") Course name is required
+                    md-button(ng-if="courseData.editedName", ng-click="discardEdits('name')") Discard
+
+            ng-form(name="metadata")
+                md-content()
+                    div(layout="row")
+                        h3.md-title(flex="15") FLVS Course ID
+                        md-input-container.md-block(md-no-float, flex)
+                            label(for="flvsCourseId") FLVS Course ID
+                            input#flvsCourseId(name="flvsCourseId", type="text", required, ng-model="courseData.name")
+                    div(layout="row")
+                        h3.md-title(flex="15") CSS File
+                        md-input-container.md-block(md-no-float, flex)
+                            label(for="cssFile") CSS File location
+                            input(id="cssFile", name="cssFile", type="text", ng-model="cssfile")
+
+        div(flex="20", layout-align="space-between end", layout="column")
+            div
+                md-switch(name="course-status", 
+                    aria-label="Course published status", 
+                    ng-model="courseData.isPublished", 
+                    ng-change="togglePublishStatus()", 
+                    layout-align="end center", 
+                    ng-disabled="!courseData.name")
+                span.float-right(for="course-status", layout-align="start ", ng-bind="courseData.isPublished ? 'Published' : 'Unpublished'") Enabled
+            
+            md-button.md-primary.md-raised(
+                type="submit", 
+                ng-click="saveCourse()", 
+                ng-disabled="!courseData.name || !(courseData.editedName || courseData.displayName)") Save
+    
+    md-content.transparent 
+        md-content.transparent 
+            ng-form(name="users")
+                md-content(layout-padding)
+                    h2.md-headline Course membership
+                    div(layout="row")
+                        h3.md-title(flex="15") Assign user to course
+                        p(ng-if="!allUsers.length", style="margin-top: 23px;") All users are members of this course
+                        md-input-container.md-block.margin-right(ng-if="allUsers.length", md-no-float, flex="30")
+                            label.sr-only(for="course") User
+                            md-select(no-grow, required, multiple, ng-model="addUser.ids")
+                                // Note: Have to use handlebars here else the checkbox won't appear in the UI.
+                                md-option(ng-repeat="user in allUsers", ng-value="user.id") {{'{{user.username}}'}}
+                        md-radio-group(ng-if="allUsers.length", required, layout-margin, ng-model="addUser.role")
+                            md-radio-button(value="TEACHER") Teacher
+                            md-radio-button(value="EDITOR") Editor
+                        md-button.md-primary(ng-if="allUsers.length", ng-disabled="!addUser.ids.length", ng-click="addToCourse()") Add
+                    p(ng-if="!users.length") 
+                        span No users belong to        
+                        span(ng-bind="' ' + courseData.displayName") 
+                            
+        md-toolbar.md-toolbar-tools(ng-if="users.length")
+            h1 Course Users
+            div.header-action-buttons(flex, layout-align="end center", ng-show="selectedUsers.length")
+                md-button(ng-click="makeTeacherSelected(selectedCourses)") Make Teacher
+                md-button(ng-click="makeEditorSelected(selectedCourses)") Make Editor
+                md-button.md-icon-button.md-warn(ng-click="removeFromSelectedCourses(selectedCourses)")
+                    i.material-icons delete_sweep 
+                    md-tooltip(md-direction="left") Remove from all selected course 
+                md-button.md-icon-button(ng-click="clearSelected()") 
+                    i.material-icons clear 
+                    md-tooltip(md-direction="left") Clear Selection
+
+        md-table-container.users-table(ng-if="users.length")
+            table(md-table, md-row-select="true", multiple="true", ng-model="selectedUsers")
+                caption.sr-only This table lists all users belonging to this course to and their role.
+                thead(md-head)
+                    tr(md-row)
+                        th(md-column) Name
+                        th(md-column) Email
+                        th(md-column) Role
+                        th.sr-only(md-column) Actions
+                tbody(md-body)
+                    tr(md-row, md-select="user", md-select-id="id", md-auto-select="true", ng-repeat="user in users")
+                        td(md-cell, ng-bind="user.user.username")
+                        td(md-cell, ng-bind="user.user.email")
+                        td(md-cell, ng-bind="user.role === 'EDITOR' ? 'Editor' : 'Teacher'")
+                        td.show-on-hover(md-cell, layout="row", layout-align="end center")
+                            md-button(ng-if="user.role == 'EDITOR'", ng-click="changeRole(user.id, 'TEACHER')") Make Teacher
+                            md-button(ng-if="user.role == 'TEACHER'", ng-click="changeRole(user.id, 'EDITOR')") Make Editor
+                            md-button.md-icon-button(ui-sref="addEditUser({ userID: user.user.id })")
+                                i.material-icons mode_edit 
+                                md-tooltip(md-direction="left") Manage User 
+                            md-button.md-icon-button(ng-click="removeUserFromCourse(user.id)")
+                                i.material-icons delete
+                                md-tooltip(md-direction="left") Remove course 
+
+        md-table-pagination(md-limit="query.limit", md-limit-options="[10, 20, 50]", md-page="query.page", md-total="{{'{{questionCounts.pending_approval.count}}'}}", md-on-paginate="getUnanswered", md-page-select)
+
+    div(layout-margin, layout="row" layout-align="center center")
+        md-button.md-warn(ng-click="showConfirmDelete($event)", ng-disabled="users.length") Delete Course

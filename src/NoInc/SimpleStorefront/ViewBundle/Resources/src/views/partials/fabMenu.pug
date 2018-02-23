@@ -1,0 +1,25 @@
+block fabMenu 
+    | {% if is_granted('ROLE_ADMIN') %}
+    #fabMenu.admin(ng-controller="fabMenuController", layout-align="end end")
+        md-fab-speed-dial.md-scale(md-direction="up", md-open=false)
+            md-fab-trigger
+                md-button.md-fab.md-warn
+                    md-icon add
+                    md-tooltip(md-direction="left") Add a question, course or user.
+            
+            md-fab-actions
+                md-button.md-fab.md-raised.md-mini(ui-sref="addEditQuestion({ questionID: 'new' })")
+                    md-icon question_answer
+                    md-tooltip(md-direction="left") Add Question
+                md-button.md-fab.md-raised.md-mini(ui-sref="addEditCourse({ courseID: 'new' })")
+                    md-icon library_books
+                    md-tooltip(md-direction="left") Add A Course
+                md-button.md-fab.md-raised.md-mini(ui-sref="addEditUser({ userID: 'new' })")
+                    md-icon account_circle
+                    md-tooltip(md-direction="left") Add A User
+    | {% else %}
+    #fabMenu(ng-controller="fabMenuController", layout-align="end end")
+        md-button.md-fab.md-warn(ui-sref="addEditQuestion({ questionID: 'new' })")
+            md-icon(style="color: white") add
+            md-tooltip(md-direction="left") Add a question
+    | {% endif %}

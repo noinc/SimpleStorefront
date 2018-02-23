@@ -1,0 +1,119 @@
+body {
+    &.login {
+        background:
+            linear-gradient(
+                transparentize($primary-color, .25),
+                transparentize($primary-color, .25)
+            ),
+            url('/images/background.jpg');
+        background-size: cover;
+    }
+
+    // Special style when searching.
+    #topBar md-toolbar {
+        z-index: 4;
+        .menu-icon, .page-title {
+            transition: .3s width $transition;
+        }
+    }
+
+    #searchResults {
+        position: fixed;
+        right: 0;
+        left: 0;
+        bottom: 110vh;
+        top: -100vh;
+        background: white;
+        transition: .2s all $transition;
+        z-index: 3 !important;
+        overflow: scroll;
+        box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12) inset;
+
+        h2 {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+        .md-subheader-content md-divider {
+            margin-top: 10px;
+        }
+
+        .md-subheader .md-subheader-inner {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .md-button {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 5px;
+            margin-left: -20px;
+            text-align: left;
+            text-transform: none;
+        }
+
+        .result-button {
+            width: 100%;
+        }
+    }
+
+    &.search {
+        #topBar {
+            md-toolbar.topbar {
+                background-color: rgba(255, 255, 255, .95);
+            }
+
+            input {
+                color: rgba(0, 0, 0, .8);
+                background-color: rgba(255, 255, 255, .95);
+            }
+
+            .menu-icon, .page-title {
+                width: 0 !important;
+            }
+        }
+
+        #searchResults {
+            top: 60px;
+            bottom: 0;
+        }
+
+        md-icon, h1 {
+            color: white;
+            fill: white;
+        }
+
+        .search-close, .search-container {
+            md-icon {
+                color: black;
+                fill: black;
+            }
+        }
+    }
+}
+
+.loading-container {
+    height: 15rem;
+}
+
+#fabMenu {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    z-index: 100;
+
+    &.admin {
+        pointer-events: none;
+    }
+    a {
+        display: flex;
+    }
+}
+
+#pageContent {
+    overflow: scroll;
+
+    ui-view > div {
+        padding-bottom: 3em;
+    }
+}

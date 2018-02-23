@@ -1,0 +1,64 @@
+// These are designed to match the AngularJS Material Spec:
+// https://material.angularjs.org/latest/layout/options
+
+// Use these inline with in the declaration of the
+// element you're editing by using this pattern:
+//
+// @include xs() {
+//    key: property;
+// }
+
+@mixin xs() {
+    @media only screen and (max-width : 599px) {
+        @content;
+    }
+}
+
+@mixin gt-xs() {
+    @media only screen and (min-width : 600px) {
+        @content;
+    }
+}
+
+@mixin sm() {
+    @media only screen and (max-width : 959px) and (min-width: 600px) {
+        @content;
+    }
+}
+
+@mixin gt-sm() {
+    @media only screen and (min-width : 960px) {
+        @content;
+    }
+}
+
+
+@mixin md() {
+    @media only screen and (max-width : 1279px) and (min-width: 960px) {
+        @content;
+    }
+}
+
+@mixin gt-md() {
+    @media only screen and (min-width : 1280px) {
+        @content;
+    }
+}
+
+@mixin lg() {
+    @media only screen and (max-width : 1919px) and (min-width: 1280px) {
+        @content;
+    }
+}
+
+@mixin gt-lg() {
+    @media only screen and (min-width : 1920px) {
+        @content;
+    }
+}
+
+@mixin xl() {
+    @media only screen and (min-width : 1920px) {
+        @content;
+    }
+}

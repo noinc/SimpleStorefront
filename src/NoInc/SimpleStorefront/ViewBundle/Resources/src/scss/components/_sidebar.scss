@@ -1,0 +1,79 @@
+#sidebar {
+    overflow: auto;
+    z-index: 0;
+    //background-color: $primary-color;
+    transition: .3s margin-left $transition;
+    @include gt-md() {
+        margin-left: 0;
+        &.close {
+            margin-left: -278px;
+        }
+    }
+
+    md-sidenav {
+        // Overriding the default width.
+        width: 280px;
+        margin-right: 50px;
+        background-color: $primary-color;
+        height: 100%;
+
+        .md-toolbar-tools {
+            background-color: $primary-color;
+        }
+
+        @include gt-md() {
+            background: transparent;
+            padding-right: 15px;
+        }
+
+        md-list {
+            padding-top: 10px;
+        }
+
+        md-list-item {
+            margin: 0;
+            padding: 0;
+            color: white;
+
+            @include gt-md() {
+                color: darken($primary-color, 25%);
+            }
+
+            a, button {
+                margin: 0;
+                margin-left: 10px;
+                padding: 5px 15px 5px 15px;
+                width: 100%;
+
+                &.active {
+                    background-color: rgba(0, 0, 0, .1);
+                    color: white;
+
+                    @include gt-md() {
+                        color: $primary-color;
+                    }
+
+                    md-icon {
+                        color: white;
+                        @include gt-md() {
+                            color: $primary-color;
+                        }
+                    }
+                }
+            }
+
+            p {
+                margin: 0;
+                text-transform: none;
+            }
+
+            md-icon {
+                @include gt-md() {
+                    color: darken($primary-color, 25%);
+                }
+                color: white;
+                margin: 0 15px 0 0;
+            }
+        }
+    }
+}

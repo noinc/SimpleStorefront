@@ -1,0 +1,28 @@
+.custom-tooltip {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+
+    opacity: 1;
+    display: block;
+    position: fixed;
+    padding: 0.5em;
+    //border-radius: 50%;
+    border-radius: 25% 0 0 25%;
+    background-color: rgba(250, 250, 250, .95);
+    transition: .3s opacity $transition;
+    //box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+}
+
+// General tooltip font size
+.mat-tooltip {
+    font-size: 18px !important;
+}
