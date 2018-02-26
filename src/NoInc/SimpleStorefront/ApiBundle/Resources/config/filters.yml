@@ -1,0 +1,5 @@
+services:
+    product.recipe_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { recipe: 'exact' } ]
+        tags: [ 'api_platform.filter' ]

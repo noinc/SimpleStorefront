@@ -4,7 +4,7 @@ types:
     resourceEnabled: true
     attributes:
       filters: 
-      - 'recipe.id'
+      - 'product.recipe_filter'
     properties:
 ###### Start Custom Fields 
       createdAt:
@@ -14,7 +14,7 @@ types:
         - input
       recipe:
         range: Recipe
-        cardinality: (1..1)
+        cardinality: (*..1)
         groups:
         - output
         - input
