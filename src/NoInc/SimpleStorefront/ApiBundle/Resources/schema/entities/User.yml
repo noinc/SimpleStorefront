@@ -2,9 +2,6 @@ types:
   User:
     parent: \FOS\UserBundle\Model\User
     resourceEnabled: true
-    constants:
-      ROLE_ADMIN: ROLE_ADMIN
-      ROLE_USER: ROLE_USER
     forceParentConstructor: true
     tableName: users
     uniqueEntity:
@@ -12,6 +9,11 @@ types:
     - username
     properties:
 ###### Start Custom Fields 
+      currentCapital:
+        range: Float
+        groups:
+        - output
+        - input
 ###### End Custom Fields 
 ###### Start FOSUserBundle fields
       username:

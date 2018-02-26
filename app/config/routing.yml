@@ -1,11 +1,13 @@
-noinc_qris_ngview:
+noinc_simplestorefront_viewbundle:
     resource: "@NoIncSimpleStorefrontViewBundle/Resources/config/routing.yml"
     prefix:   /
+    
+noinc_simplestorefront_apibundle:
+    resource: "@NoIncSimpleStorefrontApiBundle/Controller"
+    type:     annotation
+    prefix:   '/api'
 
-api:
+api_platform:
     resource: '.'
     type:     'api_platform'
     prefix:   '/api'
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

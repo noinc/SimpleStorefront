@@ -1,0 +1,21 @@
+types:
+  Product:
+    parent: false
+    resourceEnabled: true
+    attributes:
+      filters: 
+      - 'recipe.id'
+    properties:
+###### Start Custom Fields 
+      createdAt:
+        range: DateTime
+        groups:
+        - output
+        - input
+      recipe:
+        range: Recipe
+        cardinality: (1..1)
+        groups:
+        - output
+        - input
+###### End Custom Fields 

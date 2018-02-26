@@ -1,0 +1,11 @@
+fos_user:
+    db_driver:      orm
+    firewall_name:  main
+    user_class:     NoInc\SimpleStorefront\ApiBundle\Entity\User
+    use_listener:   true
+    from_email:
+        address:        "SimpleStorefront@noinc.com"
+        sender_name:    "SimpleStorefront no reply"
+    registration:
+        confirmation:
+            enabled:    false

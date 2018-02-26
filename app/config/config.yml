@@ -1,6 +1,8 @@
 imports:
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: Bundles/FOSUserBundle.yml }
+    - { resource: Bundles/FOSRestBundle.yml }
     - { resource: Bundles/ApiPlatformBundle.yml }
     - { resource: Bundles/SwiftmailerBundle.yml }
     - { resource: "@NoIncSimpleStorefrontViewBundle/Resources/config/services.yml" }
@@ -11,7 +13,6 @@ parameters:
     locale: en
 
 framework:
-    #esi:             ~
     translator: { fallbacks: [en] }
     secret:          "%secret%"
     router:
@@ -59,23 +60,6 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
-fos_rest:
-    param_fetcher_listener: true
-    body_listener: true
-    routing_loader:
-        default_format: json
-        include_format: false
-fos_user:
-    db_driver:      orm
-    firewall_name:  main
-    user_class:     NoInc\SimpleStorefront\ApiBundle\Entity\User
-    use_listener:   true
-    from_email:
-        address:        "SimpleStorefront@noinc.com"
-        sender_name:    "SimpleStorefront no reply"
-    registration:
-        confirmation:
-            enabled:    true
 
 
 

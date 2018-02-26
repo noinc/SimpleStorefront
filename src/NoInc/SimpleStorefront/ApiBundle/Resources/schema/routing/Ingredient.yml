@@ -1,5 +1,5 @@
 types:
-  User:
+  Ingredient:
     defaultOperations:
       collection_get:
         enabled: true
@@ -11,6 +11,3 @@ types:
         enabled: true
       item_delete:
         enabled: true
-    itemOperations:
-      current:
-        route_name: "get_user_current"

@@ -1,0 +1,32 @@
+types:
+  Ingredient:
+    parent: false
+    resourceEnabled: true
+    constants:
+      MEASURE_CUP: Cup
+      MEASURE_EACH: Each
+    properties:
+###### Start Custom Fields 
+      name:
+        range: Text
+        ormColumn: type="string", length=180, nullable=false
+        groups:
+        - output
+        - input
+      price:
+        range: Float
+        groups:
+        - output
+        - input
+      measure:
+        range: Text
+        ormColumn: type="string", length=180, nullable=false
+        groups:
+        - output
+        - input
+      stock:
+        range: Float
+        groups:
+        - output
+        - input
+###### End Custom Fields 

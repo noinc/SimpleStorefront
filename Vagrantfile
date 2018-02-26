@@ -62,6 +62,8 @@ apt-get install mysql-server -y > /dev/null
 
 mysql -uroot -p12345 -e "SET PASSWORD = PASSWORD('');"
 
+mysql -uroot -e "CREATE DATABASE SimpleStorefront;"
+
 echo "Enabling mod-rewrite"
 a2enmod rewrite
 

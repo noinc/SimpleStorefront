@@ -1,0 +1,18 @@
+types:
+  RecipeIngredient:
+    parent: false
+    resourceEnabled: true
+    properties:
+###### Start Custom Fields 
+      quantity:
+        range: Float
+        groups:
+        - output
+        - input
+      ingredient:
+        range: Ingredient
+        cardinality: (*..1)
+        groups:
+        - output
+        - input
+###### End Custom Fields 
