@@ -32,18 +32,19 @@ The project has been scaffolded using Symfony 3.0 and any additions should follo
 
 The frontend source files are contained in the ``src/NoInc/SimpleStorefront/ViewBundle/Resources/src/`` directory. Your vagrant should have a few utilities installed to make development a breeze. Upon intialization, the default and base frontend should be built an installed. As you work on the frontend, you will need to re-compile the views, styles and scripts. You can use the following steps to do so:
 
-	1. After the vagrant box starts, ssh into it: ``vagrant ssh``
-	2. Inside the vagrant, cd into the SimpleStorefront: ``cd SimpleStorefront``
-	3. Use gulp to compile: ``gulp --gulpfile src/NoInc/SimpleStorefront/ViewBundle/gulpfile.js``
-		a. If you are actively developing, and wish to automatically recompile as you work, run: ``gulp watch --develop --gulpfile src/NoInc/SimpleStorefront/ViewBundle/gulpfile.js``
+1. After the vagrant box starts, ssh into it: ``vagrant ssh``
+2. Inside the vagrant, cd into the SimpleStorefront Viewbundle: ``cd SimpleStorefront/src/NoInc/SimpleStorefront/ViewBundle``
+3. Use gulp to compile: ``gulp``
+4. If you are actively developing, and wish to automatically recompile as you work, run: ``gulp watch --develop``
 
-Note that adding the ``--develop`` switch will prevent the javascript linter from cancelling the build upon errors.
+Running gulp with the command ``watch`` will cause gulp to continuously watch the frontend files for changes and recompile on the fly as you edit them (the process will not exit unless a major syntax error is present).
+Running gulp with the ``--develop`` switch will prevent the javascript linter from cancelling the build upon errors.
 
-All Javascript should be in the ``src/scripts`` folder, all views are written in Pug in ``src/views``, and styles in ``src/scss``.
+All Javascript should be in the ``src/scripts`` folder, all views are written in Pug in ``src/views``, and styles in ``src/scss``:
 
-Javascript should conform to [the AirBnB Javascript styleguide](https://github.com/airbnb/javascript) with some modifications (see the .eslintrc file).
-Views are written in [HTML pre-processed language Pug](https://pugjs.org/language/attributes.html)
-Styles are written in [SCSS](http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html)
+* Javascript is written in ES6 and should conform to [the AirBnB Javascript styleguide](https://github.com/airbnb/javascript) with some modifications (see the .eslintrc file). The Javascript linter will fail the frontend build if the JS doesn't conform (use the --develop switch as noted above to see errors without needing to restart the build each time, or if you want to intentionally bypass the linter)
+* Views are written in [HTML pre-processed language Pug](https://pugjs.org/language/attributes.html)
+* Styles are written in [SCSS](http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html)
 
 If you are curious with how files are compiled, linked and placed, look at the ``gulpfile.js``, which powers most of the frontend build chain.
 
