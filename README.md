@@ -70,7 +70,7 @@ The following is a list of tasks that should be completed. They are in three lev
 
 ### Intermediate
 #### Frontend challenges
-* Add a UI library (such as Materialize or Bootstrap) and style all pages using this library
+* Add a UI library (such as Materialize, Bootstrap or Angular Material) and style all pages using this library
 * Allow administrators to create and modify recipes using AJAX calls to the API layer.
 * Allow administrators to buy ingredients using AJAX calls to the API layer.
 * Make sure to implement front-end checks for quantities (i.e. if you have no sugar in stock, you can't make lemonade!)
