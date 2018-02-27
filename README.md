@@ -54,7 +54,7 @@ If you are curious with how files are compiled, linked and placed, look at the `
 
 ## This project is not finished!  
 
-The following is a list of tasks that should be completed. They are in three levels, beginner, intermediate and advanced, and broken into frontend and backend components.
+The following is a list of tasks that should be completed. They are in three levels, beginner, intermediate and advanced, and broken into frontend and backend components. You don't need to complete all the tasks define, but complete as many as you are comfortable and able to do. We are paying attention to completeness, code style, and architecture of your work.
 
 ### Beginner
 
@@ -75,6 +75,7 @@ The following is a list of tasks that should be completed. They are in three lev
 * Allow administrators to buy ingredients using AJAX calls to the API layer.
 * Make sure to implement front-end checks for quantities (i.e. if you have no sugar in stock, you can't make lemonade!)
 * Add static product images (can be hard-coded image files)
+* Create an admin dashboard to show sales and revenue (minimally, in a textual format)
 
 #### Backend challenges
 * ???
@@ -82,6 +83,7 @@ The following is a list of tasks that should be completed. They are in three lev
 ### Advanced
 #### Frontend challenges
 * Add a shopping cart/checkout interface
+* Modify the admin dashboard to show graphical charts (using a charting library of your choosing)
 * Create custom styles and design extending a UI library, or write your own UI without a library.
 * Make sure the interface is WCAG 2.0 AA-level compliant [use the WAVE tool to help verify compliance](https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh?hl=en-US)
 * Make sure the interface is mobile-friendly targeting screen sizes as small as an iPhone 5.
