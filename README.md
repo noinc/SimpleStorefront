@@ -52,16 +52,42 @@ All Javascript should be in the ``src/scripts`` folder, all views are written in
 
 If you are curious with how files are compiled, linked and placed, look at the ``gulpfile.js``, which powers most of the frontend build chain.
 
-## The project is not finished, however.  The following is a list of tasks that ought to be completed:
-	Beginner:
-		Add a Header with a Login/Logout button
-		Add another Recipe and list of Ingredients through data fixtures
-		Check to make sure Ingredients are in Stock before making a Product
-	Intermediate:
-		Add a Product image
-		Add in a stylized Login page
-		Add the Buy Ingredients Panel
-	Advanced:
-		Add in a shopping cart/checkout system
-		Add in a CDN or Amazon S3 for image serving
-		Add in managers for Ingredients and Recipes
+## This project is not finished!  
+
+The following is a list of tasks that should be completed. They are in three levels, beginner, intermediate and advanced, and broken into frontend and backend components.
+
+### Beginner
+
+#### Frontend challenges
+* Add a header with a login/logout button
+* Create an interface for viewing ingredients
+* Create different interfaces for administrators and customers viewing the storefront
+* Use AJAX calls to the API layer to display recipes and their ingredients.
+
+#### Backend challenges
+* Add another Recipe and list of Ingredients through data fixtures
+* Check to make sure Ingredients are in Stock before making a Product
+
+### Intermediate
+#### Frontend challenges
+* Add a UI library (such as Materialize or Bootstrap) and style all pages using this library
+* Allow administrators to create and modify recipes using AJAX calls to the API layer.
+* Allow administrators to buy ingredients using AJAX calls to the API layer.
+* Make sure to implement front-end checks for quantities (i.e. if you have no sugar in stock, you can't make lemonade!)
+* Add static product images (can be hard-coded image files)
+
+#### Backend challenges
+* ???
+
+### Advanced
+#### Frontend challenges
+* Add a shopping cart/checkout interface
+* Create custom styles and design extending a UI library, or write your own UI without a library.
+* Make sure the interface is WCAG 2.0 AA-level compliant [use the WAVE tool to help verify compliance](https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh?hl=en-US)
+* Make sure the interface is mobile-friendly targeting screen sizes as small as an iPhone 5.
+* Optionally, modify the frontend build chain to be more efficient.
+
+#### Backend challenges
+* Add in a shopping cart/checkout system
+* Add in a CDN or Amazon S3 for image serving
+* Add in managers for Ingredients and Recipes
