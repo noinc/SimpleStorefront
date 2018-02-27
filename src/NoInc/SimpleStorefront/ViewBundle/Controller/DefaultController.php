@@ -5,6 +5,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -18,7 +19,11 @@ class DefaultController extends Controller
      */
     public function homeAction()
     {
-        return new Response('<html><body>Home page!</body></html>');
+        if ( $this->getUser() ) {
+            return new RedirectResponse('/app/recipes', 301);
+        }
+
+        return new RedirectResponse('/login', 307);
     }
 
     /**
@@ -28,9 +33,7 @@ class DefaultController extends Controller
     public function getLoginAction(Request $request)
     {
         if ( $this->getUser() ) {
-            return new JsonResponse([
-                'success' => true
-            ]);
+            return new RedirectResponse('/app/recipes', 301);
         }
 
         $error = null;

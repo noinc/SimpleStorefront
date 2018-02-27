@@ -1,41 +1,19 @@
 doctype html
 html(lang="en")
     head
-        title FLVS Personal Learning Assistant Admin
+        title noinc Simple Storefront
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         block scripts
-            script(src='/scripts/pla-vendor.js')
-            script(src='/scripts/mathjax/MathJax.js?config=TeX-MML-AM_CHTML')
-            script(src='/scripts/pla.js')
+            script(src='/scripts/noinc-vendor.js')
+            script(src='/scripts/noinc.js')
             
         block stylesheets
-            link(rel="stylesheet", href="/stylesheets/pla-vendor.min.css")
-            link(rel="stylesheet", href="/stylesheets/pla.min.css")
-            link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic")
-            link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+            link(rel="stylesheet", href="/stylesheets/noinc.min.css")
             
-    body(ng-app="flvsPLA", layout="column", ng-cloak)
-        div(layout="column", flex, layout-fill)
-            #topBar(layout="row")
-                block topbar
-                    include topbar.pug
-            div(layout="row", flex, layout-fill)
-                #sidebar.hide-print(ng-controller="sidebarController")
-                    block sidebar
-                        include sidebar.pug
-                #pageContent(layout-fill)
-                    ui-view
-                block fabMenu
-                    include fabMenu.pug
-            #footer
-                footer(layout="row", layout-padding)
-                    p.org(flex, md-truncate) &copy; 2017 Florida Virtual Schools
-                    p(layout-align="center end", md-truncate) Logged in as 
-                        span.current-user
-                            | {{ app.user }} 
-                        span.current-user
-                            | {% if is_granted('ROLE_ADMIN') %}
-                            span | Role: Administrator
-                            | {% elseif is_granted('ROLE_USER') %}
-                            span | Role: Teacher/Editor
-                            | {% endif %}
+    body(ng-app="noincSimpleStorefront", ng-cloak)
+        // All angular-defined views will be placed in the ui-view
+        ui-view
+        
+        // For non-angularized pages (i.e. the login page), extend this template
+        // and put content in this named block.
+        block content

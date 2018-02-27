@@ -15,25 +15,15 @@ const rename = require('gulp-rename');
 const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
 
+// DO NOT CHANGE THIS LINE. This is magic that puts
+// frontend assets in the place Symfony expects them to be.
+// This is the price we pay for using this buildchain!
 const webFolder = '../../../../web/';
 
-gulp.task('vendor-styles', () => {
-    return gulp.src([
-        'node_modules/angular-material/angular-material.css',
-        'node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.css',
-        'node_modules/angular-material-data-table/dist/md-data-table.css',
-        'node_modules/textangular/dist/textAngular.css'
-    ], {base: '.'})
-    .pipe(order([
-        '**/*.scss',
-    ], { base: './' }))
-    .pipe(sass({ style: 'expanded' }))
-    .pipe(autoprefixer('last 2 version'))
-    .pipe(concat('noinc-vendor.css'))
-    .pipe(cssnano())
-    .pipe(rename('pla-vendor.min.css'))
-    .pipe(gulp.dest(`${webFolder}/stylesheets`))
-});
+const isDevelop = () => {
+    if (process.argv.indexOf('--develop') > -1) return true;
+    return false;
+}
 
 gulp.task('styles', () => {
     return gulp.src([
@@ -47,50 +37,26 @@ gulp.task('styles', () => {
     .pipe(autoprefixer('last 2 version'))
     .pipe(concat('noinc.css'))
     .pipe(cssnano())
-    .pipe(rename('pla.min.css'))
+    .pipe(rename('noinc.min.css'))
     .pipe(gulp.dest(`${webFolder}/stylesheets`))
 });
 
-// Mathjax is a whole thing that requires it's own folder structure
-// so rather than concat into one file, we're just going to move the
-// whole directory and do ugly loading on the browser side.
-gulp.task('mathjax', () => {
-    return gulp.src('node_modules/mathjax/**/*', { base: './node_modules' })
-    .pipe(gulp.dest(`${webFolder}/scripts`));
-});
-
-gulp.task('vendor-scripts', ['mathjax'], () => {
+gulp.task('vendor-scripts', () => {
     return gulp.src([
         'node_modules/angular/angular.js',
         'node_modules/@uirouter/angularjs/release/angular-ui-router.js',
-        'node_modules/angular-material/angular-material.js',
         'node_modules/angular-animate/angular-animate.js',
         'node_modules/angular-aria/angular-aria.js',
-        'node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.js',
         'node_modules/moment/moment.js',
-        'node_modules/textangular/dist/textAngular-rangy.min.js',
-        'node_modules/textangular/dist/textAngular-sanitize.min.js',
-        'node_modules/d3/build/d3.min.js',
-        'node_modules/d3-tip/index.js',
-        'node_modules/textangular/dist/textAngular.min.js',
-        'Resources/src/scripts/vendor-overrides/**/*.js'
     ])
     .pipe(order([
         'node_modules/angular/angular.js',
         'node_modules/@uirouter/angularjs/release/angular-ui-router.js',
-        'node_modules/angular-material/angular-material.js',
         'node_modules/angular-animate/angular-animate.js',
         'node_modules/angular-aria/angular-aria.js',
-        'node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.js',
         'node_modules/moment/moment.js',
-        'node_modules/textangular/dist/textAngular-rangy.min.js',
-        'node_modules/textangular/dist/textAngular-sanitize.min.js',
-        'node_modules/d3/build/d3.min.js',
-        'node_modules/d3-tip/index.js',
-        'node_modules/textangular/dist/textAngular.min.js',
-        'Resources/src/scripts/vendor-overrides/**/*.js'
     ], { base: './' }))
-    .pipe(concat('pla-vendor.js'))
+    .pipe(concat('noinc-vendor.js'))
     .pipe(uglify({mangle:false}))
     .pipe(gulp.dest(`${webFolder}/scripts`))
     .pipe(rename({ suffix: '.min' }))
@@ -101,21 +67,23 @@ gulp.task('scripts', () => {
     .pipe(order([
         'Resources/src/scripts/app.js',
         'Resources/src/scripts/states.js',
-        'Resources/src/scripts/utilities.js',
         'Resources/src/scripts/factories/**/*.js',
         'Resources/src/scripts/controllers/**/*.js',
     ]))
     .pipe(eslint({ configFile: '.eslintrc'}))
     // Output a message in the console when checking style
-    .on('data', (d) => gutil.log(`JS Checking Style: ${String(d.history[0]).replace('/home/vagrant/flvs/src/NoInc/FLVS/ViewBundle/Resources/src/scripts/', '')}`))
+    .on('data', (d) => gutil.log(`JS Checking Style: ${String(d.history[0]).replace('/home/vagrant/SimpleStoreFront/src/NoInc/SimpleStorefront/ViewBundle/Resources/src/scripts/', '')}`))
     .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
-    .on('finish', () => gutil.log('JS Checkstyle passed! Thanks :)'))
+    .pipe(isDevelop() ? gutil.noop() :  eslint.failAfterError())
+    .on('finish', () =>
+        isDevelop()
+        ? gutil.log('WARNING JS Checkstyle ran in develop mode. Please check for errors as they will fail on production builds.')
+        : gutil.log('JS Checkstyle passed! Thanks :)'))
     .pipe(babel({
         presets: ['es2015'],
         plugins: ['transform-object-rest-spread']
     }))
-    .pipe(concat('pla.js'))
+    .pipe(concat('noinc.js'))
     .pipe(uglify({ mangle: false }))
     .pipe(gulp.dest(`${webFolder}/scripts`))
     .pipe(rename({ suffix: '.min' }));
@@ -149,7 +117,7 @@ gulp.task('clean', () => {
 
 // Default task
 gulp.task('default', ['clean'], () => {
-    gulp.start('styles', 'vendor-styles', 'scripts', 'vendor-scripts', 'fonts', 'images', 'views');
+    gulp.start('styles', 'scripts', 'vendor-scripts', 'fonts', 'images', 'views');
 });
 
 // Watch

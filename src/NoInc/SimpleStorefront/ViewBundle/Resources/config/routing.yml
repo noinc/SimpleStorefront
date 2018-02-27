@@ -1,4 +1,40 @@
-# Base pages
 noinc_simplestorefront_viewbundle_html_home:
     resource: "@NoIncSimpleStorefrontViewBundle/Controller"
     type:     annotation
+
+no_inc_simplestorefront_view_bundle_html_index:
+    path: /
+    defaults:
+        _controller: 'FrameworkBundle:Template:template'
+        template: '@NoIncSimpleStorefrontViewBundle/partials/base.html.twig'
+
+# Error Pages
+no_inc_simplestorefront_view_bundle_html_error:
+    path: /error.html
+    defaults:
+        _controller: 'FrameworkBundle:Template:template'
+        template: '@NoIncSimpleStorefrontViewBundle/error.html.twig'
+
+## Page partials called by UI-Router
+## For each partial you create as a pug template,
+## be sure to copy/paste a block and name the route accordingly.
+## The routes will have the same structure as the src directory and
+## they will be automatically picked up by Symfony.
+
+# Recipes
+no_inc_simplestorefront_view_bundle_html_all_recipes:
+    path: /recipes/allRecipes.html
+    defaults:
+        _controller: 'FrameworkBundle:Template:template'
+        template: '@NoIncSimpleStorefrontViewBundle/recipes/allRecipes.html.twig'
+
+# This catch all route allows deep linking into the angular app without
+# Symfony generating 404 errors. All ui-router links in the app must be
+# prefixed with /app/ for this to work :)
+no_inc_flvs_view_bundle_catch_all:
+    path: /app/{catch_all}
+    requirements:
+        catch_all: '.*'
+    defaults:
+        _controller: 'FrameworkBundle:Template:template'
+        template: '@NoIncSimpleStorefrontViewBundle/partials/base.html.twig'

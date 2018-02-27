@@ -1,31 +1,15 @@
-extends ../partials/unauthBase.pug
+extends ../partials/base.pug
 
 block content 
-    md-card-title(flex="100")
-        h1.md-title Welcome to the FLVS Personal Learning Assistant
+    div(ng-controller="loginController")
+        
+        h1 Please login to access the system.
 
-    md-card-content(flex="100", ng-controller="loginController")
-        p Please login to access the system.
-        br 
-        form(name="loginForm")
-            md-input-container.md-block(flex="100", layout-padding)
-                label(for="username") FLVS Email
-                input(id="username", required, name="_username", type="username", ng-model="user.username")
+        ng-form(name="loginForm")
+            label(for="username") Username
+            input(id="username", required, name="_username", type="username", ng-model="user.username")
+            
+            label(for="password") Password
+            input(id="password", required, name="_password", type="password", ng-model="user.password")
                 
-            md-input-container.md-block(flex="100", layout-padding)
-                label(for="password") Password
-                input(id="password", required, name="_password", type="password", ng-model="user.password")
-                    
-            div
-                | {% if csrf_token %}
-                <input id="csrf" type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                | {% endif %}
-
-            p.md-caption(ng-message="required", ng-bind="loginError", style="color: red; margin-top: -4em;")            
-                
-            md-input-container.md-block(flex="100", layout-padding)
-                md-checkbox(name="rememberMe", ng-model="user.rememberLogin") Remember Me
-                
-            md-input-container.md-block(flex="100")
-                md-button.md-raised.md-primary(type="submit", ng-disabled="!loginForm.$valid", ng-click="login()") Login
-                md-button.md-primary(ng-href="/resetting/request", target="_self") Trouble Logging In?
+            button(type="submit", ng-disabled="!loginForm.$valid", ng-click="login()") Login

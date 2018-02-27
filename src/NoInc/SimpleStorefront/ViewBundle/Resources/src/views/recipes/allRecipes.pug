@@ -1,0 +1,17 @@
+div
+    h1 All Recipes
+
+    div(class="recipe-container" ng-repeat="recipe in recipes")
+        h2(ng-bind="recipe.name")
+        p Price: $
+            span(ng-bind="recipe.price")
+        h3 Ingredients
+        ul
+            li(ng-repeat="item in recipe.recipeIngredients")
+                p(ng-bind="item.ingredient.name")
+                p Price: $
+                    span(ng-bind="item.ingredient.price")
+                p Quantity: 
+                    span(ng-bind="item.quantity")
+                p In Stock: 
+                    span(ng-bind="item.ingredient.stock + ' ' + item.ingredient.measure")

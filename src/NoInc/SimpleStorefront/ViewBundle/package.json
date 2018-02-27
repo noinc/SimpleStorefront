@@ -10,9 +10,6 @@
         "angular": "^1.6.5",
         "angular-animate": "^1.6.5",
         "angular-aria": "^1.6.5",
-        "angular-material": "^1.1.4",
-        "angular-material-data-table": "^0.10.10",
-        "angular-material-sidemenu": "^1.0.2",
         "angular-messages": "^1.6.6",
         "asap": "^2.0.6",
         "async": "^2.4.1",
@@ -24,8 +21,6 @@
         "child_process": "^1.0.2",
         "connect-flash": "^0.1.1",
         "cookie-parser": "~1.4.3",
-        "d3": "^4.11.0",
-        "d3-tip": "^0.7.1",
         "debug": "~2.6.3",
         "del": "^2.2.2",
         "eslint-config-airbnb": "^16.1.0",
@@ -50,11 +45,9 @@
         "gulp-util": "^3.0.8",
         "jquery": "^3.2.1",
         "jshint": "^2.9.4",
-        "mathjax": "^2.7.2",
         "moment": "^2.18.1",
         "pug": "^2.0.0-rc.4",
         "sass-lint": "^1.10.2",
-        "textangular": "^1.5.16",
         "timeago": "^1.6.1"
     }
 }

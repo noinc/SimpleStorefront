@@ -8,35 +8,3 @@
     clip: rect(0,0,0,0);
     border: 0;
 }
-
-.float-right {
-    float: right;
-}
-
-.no-select {
-    user-select: none;
-}
-
-.margin-right {
-    margin-right: 2em !important;
-}
-
-.compressed {
-    h4, p {
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-}
-
-h2 {
-    .small {
-        margin-top: 0;
-        font-size: .7em;
-        font-weight: normal;
-        opacity: .5;
-    }
-}
-
-.error {
-    color: rgb(221,44,0);
-}

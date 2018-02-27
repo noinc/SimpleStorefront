@@ -10,10 +10,7 @@
     "globals": {
         "angular": true,
         "app": true,
-        "MathJax": true,
         "moment": true,
-        "tinycolor": true,
-        "d3": true,
     },
     "rules": {
         "valid-jsdoc": ["error", {
@@ -33,5 +30,6 @@
         "no-param-reassign": 0,
         "max-len": ["warn", 200],
         "linebreak-style": 0,
+        "jsx-a11y": 0,
     }
 }

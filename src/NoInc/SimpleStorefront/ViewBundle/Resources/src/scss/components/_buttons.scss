@@ -1,20 +1,3 @@
-button.opt-group-action {
-    float: right;
-}
-
-.md-button[disabled="disabled"] {
-    md-icon {
-        opacity: 0.5;
-    }
-}
-
-md-toolbar.md-menu-toolbar.workflow-tools {
-    background: transparent;
-    border-bottom: 1px solid;
-}
-
-.workflow-tools {
-    > .md-button:last-child {
-        margin-right: 0;
-    }
+button {
+    border-radius: 5px;
 }
