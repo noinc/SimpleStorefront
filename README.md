@@ -31,6 +31,7 @@ The project has been scaffolded using Symfony 3.0 and any additions should follo
 ## Frontend Structure:
 
 The frontend source files are contained in the ``src/NoInc/SimpleStorefront/ViewBundle/Resources/src/`` directory. Your vagrant should have a few utilities installed to make development a breeze. Upon intialization, the default and base frontend should be built an installed. As you work on the frontend, you will need to re-compile the views, styles and scripts. You can use the following steps to do so:
+
 	1. After the vagrant box starts, ssh into it: ``vagrant ssh``
 	2. Inside the vagrant, cd into the SimpleStorefront: ``cd SimpleStorefront``
 	3. Use gulp to compile: ``gulp --gulpfile src/NoInc/SimpleStorefront/ViewBundle/gulpfile.js``
