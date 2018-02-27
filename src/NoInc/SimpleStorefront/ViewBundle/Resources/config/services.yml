@@ -1,0 +1,4 @@
+services:
+#    no_inc_flvs_view.example:
+#        class: NoInc\FLVS\ViewBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

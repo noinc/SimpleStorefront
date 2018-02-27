@@ -1,0 +1,125 @@
+div.add-edit-page
+    md-content(layout-padding, layout="row")
+        div(flex="80")
+            h1.md-title Name
+            p.editable-text(ng-bind="userData.username", ng-if="!editingName && userData.username", ng-click="toggleName()", aria-label="Click to edit user's name")
+            button.sr-only(ng-if="!editingName", ng-click="toggleName()") Edit Question Text
+            
+            ng-form(name="userName", ng-if="editingName || !userData.username", ng-submit="saveUser()")
+                md-input-container.md-block(flex="100")
+                    label.sr-only(for="question") Question Text
+                    input#username(required, name="name", ng-model="userData.editedName")
+                    div(ng-messages="userName.username.$error")
+                        div(ng-message="required") User name is required
+                    md-button(ng-if="userData.editedName", ng-click="discardEdits('name')") Discard
+                
+            h1.md-title Email
+            p.editable-text(ng-bind="userData.email", ng-if="!editingEmail && userData.email", ng-click="toggleEmail()", aria-label="Click to edit user email")
+            button.sr-only(ng-if="!editingAnswer && userData.username", ng-click="toggleEmail()") Edit Answer Text
+                            
+            ng-form(name="userEmail", ng-if="editingEmail || !userData.email", ng-submit="saveUser()")
+                md-input-container.md-block(flex="100")
+                    label.sr-only(for="quicklaunch") User email
+                    input#email(name="email", type="email", required="required", ng-model="userData.editedEmail")
+                    div(ng-messages="userEmail.email.$error")
+                        div(ng-message="required") User email is required.
+                    md-button(ng-if="userData.editedEmail", ng-click="discardEdits('email')") Discard
+                
+            h1.md-title Set Password                            
+            ng-form(name="setPassword", ng-submit="saveUser()")
+                md-input-container.md-block(flex="80")
+                    label(for="password") New Password
+                    input#password(password-verify="", name="password", type="password", ng-model="userData.password")
+                md-input-container.md-block(flex="80", ng-if="userData.password")
+                    label(for="confirm-password") Confirm Password
+                    input#confirm-password(password-verify="", required="userData.password != null", name="confirm-password", type="password", ng-model="userData.confirmPassword")
+                    div(ng-messages="setPassword.setPassword.$error")
+                        div(ng-message="required") Confirm password field is required.
+                    md-button(ng-if="userData.editedEmail", ng-click="discardEdits('email')") Discard
+                
+        div(flex="20", layout-align="space-between end", layout="column")
+            div
+                md-switch(name="account-status", 
+                    aria-label="User account status", 
+                    ng-model="userData.enabled", 
+                    ng-change="toggleActiveStatus()", 
+                    layout-align="end center", 
+                    ng-disabled="!userData.username || !userData.email || userData.id === 1")
+                span.float-right(for="account-status", layout-align="start ", ng-bind="userData.enabled ? 'Enabled' : 'Disabled'") Enabled
+                md-tooltip(ng-if="userId === 'new'") New user must be saved before you can enable their account.
+            div(style="text-align: right")
+                md-button.md-warn(ng-if="userId !== 'new'", type="button", ng-click="sendPasswordReset()") Send Password Reset Email
+                md-button.md-primary.md-raised(type="submit", ng-disabled="(userData.password && userData.password !== userData.confirmPassword) || !(userData.username || userData.editedName) || !(userData.email || userData.editedEmail)", ng-click="saveUser()") Save
+    
+    h2 Course membership
+    p(ng-show="userId === 'new'") Save this user to add them to courses.
+    md-content.transparent(ng-show="userId !== 'new'")
+        md-content.transparent 
+            ng-form(name="userCourses")
+                md-content(layout-padding)
+                    div(layout="row")
+                        h3.md-title(flex="15") Add to Course
+                        p(ng-if="!allCourses.length", style="margin-top: 23px;") This user has a role in all courses in the system.
+                        md-input-container.md-block.margin-right(ng-if="allCourses.length", md-no-float, flex="30")
+                            label.sr-only(for="course") Course ID
+                            md-select(no-grow, multiple, ng-model="addCourse.ids")
+                                md-option(ng-repeat="course in allCourses", ng-value="course.id") {{'{{course.name}}'}}
+                        md-radio-group(ng-if="allCourses.length", layout-margin, ng-model="addCourse.role", style="margin-top: -3px;")
+                            md-radio-button(value="TEACHER") Teacher
+                            md-radio-button(value="EDITOR") Editor
+                        md-button.md-primary(ng-if="allCourses.length", ng-disabled="!addCourse.role || !addCourse.ids.length", ng-click="addUserToCourse()") Add
+                    p(ng-if="!userCourses.length") 
+                        span(ng-bind="userData.username + ' '") 
+                        span does not belong to any courses.
+                           
+        md-content.transparent.courses-table(ng-show="userCourses.length")
+            md-toolbar.md-toolbar-tools
+                h1 Manage Courses
+                div.header-action-buttons(flex, layout-align="end center", ng-show="selectedCourses.length")
+                    md-button(ng-click="changeRoleSelected('TEACHER')") Make Teacher
+                    md-button(ng-click="changeRoleSelected('EDITOR')") Make Editor
+                    md-button.md-icon-button.md-warn(ng-click="removeFromSelectedCourses(selectedCourses)")
+                        i.material-icons delete_sweep 
+                        md-tooltip(md-direction="left") Remove from all selected course 
+                    md-button.md-icon-button(ng-click="clearSelected()") 
+                        i.material-icons clear 
+                        md-tooltip(md-direction="left") Clear Selection
+            md-content
+                md-table-container
+                    table.courses-table(md-table, md-row-select="true", multiple="true", ng-model="selectedCourses", md-progress="userCoursesPromise")
+                        caption.sr-only This table lists all courses this user belongs to and their role.
+                        thead(md-head)
+                            tr(md-row)
+                                th(md-column) Course
+                                th(md-column) FLVS Course ID
+                                th(md-column) User Role
+                                th.sr-only(md-column) Actions
+                        tbody(md-body)
+                            tr(md-row, md-select="course", md-select-id="id", ng-repeat="course in userCourses")
+                                td(md-cell, ng-bind="course.course.displayName")
+                                td(md-cell, ng-bind="course.course.name")
+                                td(md-cell, ng-bind="course.role == 'EDITOR' ? 'Editor' : 'Teacher'")
+                                td.show-on-hover(md-cell, layout="row", layout-align="end center")
+                                    md-button(ng-if="course.role == 'EDITOR'", ng-click="changeRole(course.id, 'TEACHER')") Make Teacher
+                                    md-button(ng-if="course.role == 'TEACHER'", ng-click="changeRole(course.id, 'EDITOR')") Make Editor
+                                    md-button.md-icon-button.md-warn(ng-click="removeUserFromCourse(course.id)")
+                                        i.material-icons delete
+                                        md-tooltip(md-direction="left") Remove course 
+                                    md-button.md-icon-button(ui-sref="addEditCourse({ courseID: course.course.id })")
+                                        i.material-icons mode_edit 
+                                        md-tooltip(md-direction="left") Edit Course 
+
+                md-table-pagination(md-limit="query.limit", md-limit-options="[10, 20, 50]", md-page="query.page", md-total="{{'{{ totalNumberOfCourses }}'}}", md-on-paginate="getUnanswered", md-page-select)
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                           

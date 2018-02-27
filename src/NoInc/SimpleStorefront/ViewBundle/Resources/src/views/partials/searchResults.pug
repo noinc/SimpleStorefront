@@ -1,0 +1,32 @@
+md-content(flex, layout-padding, layout-align="center center", layout-fill) 
+    h2 Search results
+    p(ng-if="!searchTerm") Enter a search term to search relevant questions
+        | {% if is_granted('ROLE_ADMIN') %}
+        span , courses, and users.
+        | {% endif %}
+    p(ng-if="searchTerm && !resultsData.questions.length && !resultsData.courses.length && !resultsData.users.length") No results match your search terms.
+
+    md-subheader(ng-if="resultsData.questions.length") 
+        h3 Questions
+        md-divider(nogrow)
+        md-list(flex)
+            md-list-item.secondary-button-padding(flex, ng-repeat="question in resultsData.questions")
+                md-button.md-list-item-text.result-button(aria-label="Go to this question", ng-click="goToPage('question', question.id)", ng-bind-html="question.textEn")
+    
+    | {% if is_granted('ROLE_ADMIN') %}
+    div(ng-if="resultsData.courses.length")
+        md-subheader 
+            h3 Courses
+            md-divider(nogrow)
+            md-list(flex)
+                md-list-item.secondary-button-padding(flex, ng-repeat="course in resultsData.courses")
+                    md-button.md-list-item-text.result-button(aria-label="Go to this course", ng-click="goToPage('course', course.id)", ng-bind="course.displayName")
+                            
+    div(ng-if="resultsData.users.length")
+        md-subheader 
+            h3 Users
+            md-divider(nogrow)
+            md-list(flex)
+                md-list-item.secondary-button-padding(flex, ng-repeat="user in resultsData.users")
+                    md-button.md-list-item-text.result-button(aria-label="Go to this user", ng-click="goToPage('user', user.id)", ng-bind="user.username")
+    | {% endif %}

@@ -1,0 +1,4 @@
+# Base pages
+noinc_simplestorefront_viewbundle_html_home:
+    resource: "@NoIncSimpleStorefrontViewBundle/Controller"
+    type:     annotation

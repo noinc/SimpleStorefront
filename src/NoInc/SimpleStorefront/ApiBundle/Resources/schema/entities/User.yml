@@ -1,0 +1,103 @@
+types:
+  User:
+    parent: \FOS\UserBundle\Model\User
+    resourceEnabled: true
+    forceParentConstructor: true
+    tableName: users
+    uniqueEntity:
+    - email
+    - username
+    properties:
+###### Start Custom Fields 
+      currentCapital:
+        range: Float
+        groups:
+        - output
+        - input
+###### End Custom Fields 
+###### Start FOSUserBundle fields
+      username:
+        range: Text
+        ormColumn: type="string", length=180, nullable=false, unique=true
+        cardinality: (0..1)
+        typeHint: false
+        skipOrm: true
+        readable: false
+        writable: false
+        groups:
+        - output
+        - input
+      email:
+        range: Text
+        typeHint: false
+        ormColumn: type="string", length=180, nullable=false, unique=true
+        cardinality: (0..1)
+        skipOrm: true
+        readable: false
+        writable: false
+        groups:
+        - output
+        - input
+      enabled:
+        range: Boolean
+        typeHint: false
+        ormColumn: type="boolean", nullable=false
+        cardinality: (0..1)
+        skipOrm: true
+        readable: false
+        writable: false
+        groups:
+        - output
+      salt:
+        range: Text
+        typeHint: false
+        ormColumn: type="string", length=255
+        cardinality: (0..1)
+        skipOrm: true
+        readable: false
+        writable: false
+      password:
+        range: Text
+        typeHint: false
+        ormColumn: type="string", length=255, nullable=false
+        cardinality: (0..1)
+        skipOrm: true
+        readable: false
+        writable: false
+      plainPassword:
+        range: Text
+        typeHint: false
+        ormColumn: type="string", length=255, nullable=false
+        cardinality: (0..1)
+        skipOrm: true
+        readable: false
+        writable: false
+        groups:
+        - input
+      lastLogin:
+        range: DateTime
+        typeHint: false
+        ormColumn: type="datetime"
+        cardinality: (0..1)
+        skipOrm: true
+        readable: false
+        writable: false
+        groups:
+        - output
+      confirmationToken:
+        range: Text
+        typeHint: false
+        ormColumn: type="string", length=180, nullable=false
+        cardinality: (0..1)
+        skipOrm: true
+        readable: false
+        writable: false
+      passwordRequestedAt:
+        range: Text
+        typeHint: false
+        ormColumn: type="string", length=180, nullable=false
+        cardinality: (0..1)
+        skipOrm: true
+        readable: false
+        writable: false
+###### End FOSUserBundle fields

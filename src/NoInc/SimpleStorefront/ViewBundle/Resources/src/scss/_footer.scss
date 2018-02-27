@@ -1,0 +1,18 @@
+#footer footer {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: $primary-color;
+    border-top: 4px solid darken($primary-color, 10%);
+    padding-right: 10em;
+    p {
+        font-size: 13px;
+        font-weight: bold;
+        color: white;
+        margin-top: 0;
+        margin-bottom: 0;
+        letter-spacing: 0.01em;
+        &.org {
+            text-transform: uppercase;
+        }
+    }
+}

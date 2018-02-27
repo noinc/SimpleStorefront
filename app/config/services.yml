@@ -3,7 +3,20 @@
 parameters:
 #    parameter_name: value
 
-services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+#services:
+#    app.translation.translation:
+#        class: NoInc\Platform\CoreBundle\Translation
+#        tags:
+#            - { name: translation.loader, alias: bin }
+
+#services:
+#    security.access.voter:
+#        class:  NoInc\SimpleStorefront\ApiBundle\Security\ACLVoter
+#    security.access.acl:
+#        class:  NoInc\SimpleStorefront\ApiBundle\EventListener\ACLListener
+#        public: false
+#        arguments:
+#            - { service: security.access.voter }
+#        tags:
+#            - { name: kernel.event_listener, event: "kernel.view",  method: "onKernelView", priority: 12 }
+

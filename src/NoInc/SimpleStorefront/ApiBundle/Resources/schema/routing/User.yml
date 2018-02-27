@@ -1,0 +1,16 @@
+types:
+  User:
+    defaultOperations:
+      collection_get:
+        enabled: true
+      collection_post:
+        enabled: true
+      item_get:
+        enabled: true
+      item_put:
+        enabled: true
+      item_delete:
+        enabled: true
+    itemOperations:
+      current:
+        route_name: "get_user_current"

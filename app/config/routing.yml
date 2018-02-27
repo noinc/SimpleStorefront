@@ -1,7 +1,13 @@
-no_inc_simple_storefront:
-    resource: "@NoIncSimpleStorefrontBundle/Controller/"
-    type:     annotation
+noinc_simplestorefront_viewbundle:
+    resource: "@NoIncSimpleStorefrontViewBundle/Resources/config/routing.yml"
     prefix:   /
+    
+noinc_simplestorefront_apibundle:
+    resource: "@NoIncSimpleStorefrontApiBundle/Controller"
+    type:     annotation
+    prefix:   '/api'
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+api_platform:
+    resource: '.'
+    type:     'api_platform'
+    prefix:   '/api'

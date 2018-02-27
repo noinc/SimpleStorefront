@@ -1,0 +1,35 @@
+$color-blue: rgb(0, 117, 201); // #0075C9
+$color-orange: rgb(252, 125, 60); // #FC7D3C
+
+$primary-color: $color-blue;
+$secondary-color: $color-orange;
+$transition: cubic-bezier(.25,.8,.25,1);
+
+// Any extra typefaces you want to include should be included
+// in seperate files that define the faces:
+//@import "materialdesignicons";
+
+// Import resets and helper classes
+@import "mixins";
+@import "resets";
+
+// Major page sections
+@import "layout";
+@import "footer";
+@import "typography";
+
+// Components of pages
+@import "components/modals";
+@import "components/chips";
+@import "components/topbar";
+@import "components/sidebar";
+@import "components/charts";
+@import "components/tables";
+@import "components/custom-tooltip";
+@import "components/textinput";
+@import "components/headers";
+@import "components/buttons";
+
+// Special Styles for certain pages
+@import "pages/addEditPages";
+@import "pages/questions";

@@ -1,5 +1,9 @@
 imports:
+    - { resource: parameters.yml }
     - { resource: config.yml }
+
+parameters:
+    mailer_port: ~
 
 framework:
     router:
@@ -14,7 +18,8 @@ web_profiler:
 monolog:
     handlers:
         main:
-            type: stream
+            type: rotating_file
+            max_files: 10
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
             channels: [!event]

@@ -1,0 +1,24 @@
+.donut-highlight {
+    &.hover {
+        opacity: .5;
+    }
+    transition: opacity .3s $transition;
+    opacity: .25;
+}
+
+.d3-tip {
+    background-color: white;
+    border-radius: 5px;
+    padding: 1em;
+    color: black;
+}
+
+.donut-chart-section {
+    cursor: pointer;
+}
+
+#questionsPie {
+    margin-top: 1em;
+    height: 700px;
+
+}

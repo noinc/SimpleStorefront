@@ -1,0 +1,40 @@
+md-content.transparent.dashboard
+    md-content.transparent 
+        div.loading-container(ng-if="loading", layout="column", layout-align="center center")
+            md-progress-circular(md-mode="indeterminate")
+        
+    div(flex, layout-gt-sm="row", layou-sm="column", layout-padding)
+        div(flex-sm="100", flex-gt-sm="40", layout="column")
+            md-card
+                md-card-title(md-colors="::{backgroundColor: 'primary-700'}")
+                    md-card-title-text
+                        span.md-headline Registered Users
+                        //span.md-subhead smaller text
+                    md-card-title-media(flex, layout-align="center center", layout="row")
+                        div.md-media-sm.card-media(flex, layout-align="end center", layout="row")
+                            p.md-display-2(ng-bind="users.length")
+                md-card-actions(layout="row", layout-align="end center")
+                    md-button(ui-sref="addEditUser({ userID: 'new' })") Add User
+                    md-button(ui-sref="allUsers()") Manage Users
+            
+            md-card
+                md-card-title(md-colors="::{backgroundColor: 'primary-700'}")
+                    md-card-title-text
+                        span.md-headline Courses
+                        //span.md-subhead smaller text
+                    md-card-title-media(flex, layout-align="center center", layout="row")
+                        div.md-media-sm.card-media(flex, layout-align="end center", layout="row")
+                            p.md-display-2(ng-bind="courses.length")
+                md-card-actions(layout="row", layout-align="end center")
+                    md-button(ui-sref="addEditCourse({ courseID: 'new' })") Add Course
+                    md-button(ui-sref="allCourses()") Manage Courses
+                    
+        div(flex-sm="100", flex-gt-sm="60", layout="column")
+            md-card
+                md-card-title(md-colors="::{backgroundColor: 'primary-700'}")
+                    md-card-title-text
+                        span.md-headline Questions
+                #questionsPie(layout="row", layout-align="center center", layout-padding)
+                md-card-actions(layout="row", layout-align="end center")
+                    md-button(ui-sref="addEditQuestion({ questionID: 'new' })") Add Question
+                    md-button(ui-sref="allQuestions()") Manage Questions

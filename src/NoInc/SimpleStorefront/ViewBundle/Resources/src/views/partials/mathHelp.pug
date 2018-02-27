@@ -1,0 +1,40 @@
+// This is a dialog for math elements
+md-dialog#math-help(aria-label='List dialog')
+    md-dialog-content.md-dialog-content
+        h2.md-title How to Enter Math into the Editor
+
+        md-content
+            p This input field allows you to write math equations inline with your question or answer text using and combination of
+                a(style="margin: 0 5px;", href="http://www1.chapman.edu/~jipsen/mathml/asciimathsyntax.html") ASCIIMath,
+                a(href="http://www.onemathematicalcat.org/MathJaxDocumentation/TeXSyntax.htm") TeX,
+                a(href="http://docs.mathjax.org/en/latest/tex.html#supported-latex-commands") LaTeX.
+                //span  or 
+                //a(href="https://www.w3.org/TR/MathML/") MathML
+                span  see below for examples how how to enter your equations. Remember, you may always click "Preview" to see the rendered math.
+            p 
+                i If you have typed the equation but math is not properly rendering, try clicking the Clear Formatting button (
+                    md-icon format_clear
+                i ) to clear formatting and preview the field again.
+
+            h3.md-title Using TeX or LaTeX
+            p To enter TeX or LaTeX, wrap your equation in $$ (double dollar sign) characters $$ like so:
+            div.no-select(layout="row", layout-xs="column")
+                div(flex)
+                    h4.md-subhead This text entry
+                    pre $$A = &#x03C0;r^2$$
+                div#exampleTex(flex)
+                    h4.md-subhead Renders as
+                    p $$A = &#x03C0;r^2$$
+            
+            h3.md-title Using ASCIIMath
+            p To enter ASCIIMath, wrap your equation in &#96; (backtick) characters &#96; like so:
+            div.no-select(layout="row", layout-xs="column")
+                div(flex)
+                    h4.md-subhead This text entry
+                    pre &#96;A = &#x03C0;r^2&#96;
+                div#exampleAsciimath(flex)
+                    h4.md-subhead Renders as
+                    p `A = &#x03C0;r^2`
+
+    md-dialog-actions
+        md-button.md-primary(ng-click='hide()') Got it

@@ -1,0 +1,47 @@
+md-content.transparent.questions-table
+    md-content.transparent 
+        // Filters have enough stuff to be in a separate template.
+        include filters.pug
+        div.loading-container(ng-if="loading", layout="column", layout-align="center center")
+            md-progress-circular(md-mode="indeterminate")
+        md-table-container(ng-if="questions.length && !loading") 
+            table#questionsTable(md-table, md-row-select="true", multiple="true", ng-model="selectedQuestions", md-progress="questionsPromise").transparent
+                caption.sr-only This table lists all questions for courses you belong to. Optionally, you may filter and sort this table.
+                thead(md-head) 
+                    tr(md-row) 
+                        th.timestamp(md-column, column-sort) Question Asked 
+                        th.timestamp(md-column) Status 
+                        th.timestamp(md-column) Published 
+                        th(md-column) Course 
+                        th(md-column) Question 
+                        th(md-column) Answer 
+                        th(md-column)
+                            span.sr-only Actions
+                            include quickActions.pug
+                tbody(md-body) 
+                    tr(md-row, md-select="question", md-select-id="id", ng-repeat="question in questions") 
+                        td.timestamp(md-cell, ng-bind="question.timeAgo", ui-sref="addEditQuestion({ questionID: question.id })") 
+                            md-tooltip(md-delay="500", md-direction="top", ng-bind="question.askedDate") 
+                        td(md-cell, ng-bind="question.status", ui-sref="addEditQuestion({ questionID: question.id })") 
+                        td(md-cell, ng-bind="question.isPublished ? 'Published' : 'Unpublished'") 
+                        td(md-cell, ng-bind="question.questionSet.name", ui-sref="addEditQuestion({ questionID: question.id })") 
+                        td(md-cell, ng-bind-html="question.textEn", ui-sref="addEditQuestion({ questionID: question.id })") 
+                        td(md-cell, ng-bind-html="question.currentAnswer.textEn ? question.currentAnswer.textEn : '<i>No published answer.</i>'", ui-sref="addEditQuestion({ questionID: question.id })") 
+                        td.show-on-hover(md-cell, layout="row", layout-align="end center") 
+                            md-button.md-icon-button(ui-sref="addEditQuestion({ questionID: question.id })")
+                                i.material-icons mode_edit 
+                                md-tooltip(md-direction="left") Edit Question 
+                            md-button.md-icon-button(ng-if="question.isPublished", ng-click="unpublish(question)")
+                                i.material-icons file_download 
+                                md-tooltip(md-direction="left") Unpublish Question
+                            md-button.md-icon-button(ng-if="!question.isPublished && question.currentAnswer", ng-click="publish(question)")
+                                i.material-icons file_upload 
+                                md-tooltip(md-direction="left") Publish Question 
+                            md-button.md-icon-button.md-warn(ng-click="delete(question)")
+                                i.material-icons delete
+                                md-tooltip(md-direction="left") Delete Question
+        md-table-pagination(ng-if="questions.length", md-limit="query.limit", md-limit-options="[10, 20, 50, 100]", md-page="query.page", md-total="{{'{{ totalQuestionsMatchingFilters }}'}}", md-on-paginate="loadData", md-page-select) 
+         
+        div(flex, ng-if="!questions.length && !loading", layout-align="center center", layout-padding)  
+            h3.md-headline(ng-if="!coursePage") No results match the selected filters 
+            h3.md-headline(ng-if="coursePage") This course has no questions.

@@ -1,0 +1,10 @@
+div.add-edit-page
+    md-content(layout="row")
+        div(flex)
+            h1(ng-bind="courseData.displayName")
+            
+    md-content(layout="row")
+        div(flex)
+            h2 Course Questions
+            div(ng-controller="questionsController")
+                include ../questions/allQuestions.pug

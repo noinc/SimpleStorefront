@@ -1,0 +1,24 @@
+types:
+  Recipe:
+    parent: false
+    resourceEnabled: true
+    properties:
+###### Start Custom Fields 
+      name:
+        range: Text
+        ormColumn: type="string", length=180, nullable=false
+        groups:
+        - output
+        - input
+      price:
+        range: Float
+        groups:
+        - output
+        - input
+      recipeIngredient:
+        range: RecipeIngredient
+        cardinality: (0..*)
+        groups:
+        - output
+        - input
+###### End Custom Fields 

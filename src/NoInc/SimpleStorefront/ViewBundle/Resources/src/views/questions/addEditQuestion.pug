@@ -1,0 +1,163 @@
+div.add-edit-page(layout="column")
+    md-content(layout="row", ng-if="inWorkflow")
+        md-toolbar.md-toolbar-tools.md-menu-toolbar.workflow-tools(layout-padding)
+            div(flex, layout-align="start center")
+                h1.md-subhead
+                    span(ng-bind="$state.current.data.workflowType")
+                    span  Workflow
+                    span(ng-if="$state.current.data.questionState =='NEW'", ng-bind="' (' + (newQuestions.length-1 > 0 ? newQuestions.length-1 : 0) + ' Remaining)'")
+                    span(ng-if="$state.current.data.questionState =='NEEDS_APPROVAL'", ng-bind="' (' + (needsApprovalQuestions.length-1 > 0 ? needsApprovalQuestions.length-1 : 0)+ ' Remaining)'")
+            div(flex, layout-align="end center", layout="row")
+                md-button(ng-if="nextQuestionId", ng-click="nextQuestion()") Skip Question
+                md-button(ng-if="nextQuestionId", ng-disabled="questionData.editedAnswer", ng-click="saveAndContinue()") Save and Continue
+                md-button(ng-if="!nextQuestionId && questionData.editedAnswer", ng-click="saveAndFinish()") Save and Finish
+                md-button(ng-if="!nextQuestionId && !questionData.editedAnswer", ui-sref="allQuestions") Finish
+    
+    md-content(layout-padding, layout="row")
+        div(flex="80")
+            // The Question text.
+            h1.md-headline Question 
+            
+            p.editable-text#questionText(ng-bind-html="questionData.question", 
+                ng-if="!editingQuestion && questionData.question", 
+                ng-click="editField('question')", 
+                aria-label="Click to edit question")
+            button.sr-only(ng-if="!editingQuestion && questionData.question", ng-click="editField('question')") Edit Question Text
+            
+            ng-form#questionEditor(name="questionEditor", ng-if="(editingQuestion || !questionData.question) && !showQuestionPreview")
+                md-input-container.md-block(flex="100")
+                    label.sr-only(for="question") Question Text Editor
+                    text-angular(required, name="question", ng-model="questionData.question", ng-blur="updateKeywords()")
+                    md-button(ng-click="showMathHelp()") How to enter math equations
+                    md-button.md-accent(ng-if="questionData.question", ng-click="discardEdits('question')") Discard Edits
+                    md-button(ng-if="questionData.question", ng-click="togglePreview('question')") Preview
+                    md-button.md-primary(ng-if="questionData.question", ng-disabled="!questionData.course", type="submit", ng-click="saveEdits('question')") Save
+                    div(ng-messages)
+                        div(ng-show="!questionData.course && questionData.question") You must select a course before saving this question.
+                        
+            p.editable-text#questionText(ng-bind-html="questionData.question", 
+                ng-if="showQuestionPreview", 
+                ng-click="editField('question')", 
+                aria-label="Edited question text preview")
+            md-button(ng-if="showQuestionPreview", ng-click="togglePreview('question')") Show Editor
+            md-button.md-accent(ng-if="showQuestionPreview", ng-click="discardEdits('question')") Discard Edits
+            md-button.md-primary(ng-if="showQuestionPreview", ng-disabled="!questionData.course", type="submit", ng-click="saveEdits('question')") Save
+
+            // The Current Answer.
+            h2.md-title Current Answer
+            p.md-caption(ng-if="questionData.permission  === 'TEACHER'") You are a teacher for this course. Your answers must be approved by an editor or administrator before they are shown to the student.
+            p.md-caption(ng-if="questionData.permission  === 'EDITOR'") You are an editor for this course. Your answers will be immediately available to the student.
+            p.editable-text#currentAnswerText(ng-bind-html="questionData.currentAnswer", 
+                ng-if="!editingCurrentAnswer && questionData.currentAnswer", 
+                ng-click="editField('answer')", 
+                aria-label="Click to edit the current answer")
+            button.sr-only(ng-if="!editingCurrentAnswer && questionData.currentAnswer", ng-click="editField('answer')") Edit Current Answer Text
+            
+            ng-form#currentAnswerEditor(name="currentAnswerEditor", ng-if="(editingCurrentAnswer || !questionData.currentAnswer) && !showCurrentAnswerPreview")
+                md-input-container.md-block(flex="100")
+                    label.sr-only(for="currentAnswer") Current Answer Text Editor
+                    text-angular(required, name="currentAnswer", ng-model="questionData.currentAnswer")
+                    md-button(ng-click="showMathHelp()") How to enter math equations
+                    md-button.md-accent(ng-if="questionData.currentAnswer", ng-click="discardEdits('answer')") Discard Edits
+                    md-button(ng-if="questionData.currentAnswer", ng-click="togglePreview('answer')") Preview
+                    md-button.md-primary(ng-if="questionData.currentAnswer", ng-disabled="!questionData.course || !questionData.question", type="submit", ng-click="saveEdits('answer')") Save
+                    div(ng-messages)
+                        div(ng-show="!questionData.course || !questionData.question") You must select a course and define question text before saving this answer.
+                        
+            p.editable-text#currentAnswerTextPreview(ng-bind-html="questionData.currentAnswer", 
+                ng-if="showCurrentAnswerPreview", 
+                ng-click="editField('answer')", 
+                aria-label="Edited current answer text preview")
+            md-button(ng-if="showCurrentAnswerPreview", ng-click="togglePreview('answer')") Show Editor
+            md-button.md-accent(ng-if="showCurrentAnswerPreview", ng-click="discardEdits('answer')") Discard Edits
+            md-button.md-primary(ng-if="showCurrentAnswerPreview", ng-disabled="!questionData.course || !questionData.question", type="submit", ng-click="saveEdits('answer')") Save
+            
+
+            // The pending answer.
+            div(ng-if="(questionData.status === 'NEEDS_APPROVAL' || questionData.status === 'REJECTED') && questionData.pendingAnswer")
+                div(ng-if="questionData.status === 'NEEDS_APPROVAL' && questionData.permission ==='EDITOR'")
+                    h2.md-title Pending Answer 
+                    p.md-caption (Pending answer required approval before it becomes accepted as the current answer)
+                div(ng-if="questionData.status === 'NEEDS_APPROVAL' && questionData.permission ==='TEACHER'")
+                    h2.md-title Pending Answer 
+                    p.md-caption (Awaiting editor or admin approval)
+                div(ng-if="questionData.status ==='REJECTED'")
+                    h2.md-title(ng-if="questionData.permission === 'EDITOR'") Edits Required on This Proposed Answer 
+                    p.md-caption(ng-if="questionData.permission ==='TEACHER'") (Editor or admin has requested you revise your proposed answer shown below)
+                        
+                p.editable-text#pendingAnswerText(ng-bind-html="questionData.pendingAnswer", 
+                    ng-if="!editingPendingAnswer && questionData.pendingAnswer", 
+                    ng-click="editField('pending')", 
+                    aria-label="Click to edit the pending answer")
+                    button.sr-only(ng-if="!editingPendingAnswer && questionData.pendingAnswer", ng-click="editField('pending')") Edit Pending Answer Text
+                md-button.md-primary(ng-if="!editingPendingAnswer && questionData.pendingAnswer && questionData.permission === 'EDITOR'", ng-click="approveAnswer()") Approve
+                md-button.md-accent(ng-if="!editingPendingAnswer && questionData.pendingAnswer && questionData.permission === 'EDITOR'", ng-click="rejectAnswer()") Reject for Edits
+                
+                ng-form#pendingAnswerEditor(name="pendingAnswerEditor", ng-if="(editingPendingAnswer || !questionData.pendingAnswer) && !showPendingAnswerPreview")
+                    md-input-container.md-block(flex="100")
+                        label.sr-only(for="pendingAnswer") Pending Answer Text Editor
+                        text-angular(required, name="pendingAnswer", ng-model="questionData.pendingAnswer")
+                        md-button(ng-click="showMathHelp()") How to enter math equations
+                        md-button.md-accent(ng-if="questionData.pendingAnswer", ng-click="discardEdits('pending')") Discard Edits
+                        md-button(ng-if="questionData.pendingAnswer", ng-click="togglePreview('pending')") Preview
+                        md-button.md-primary(ng-if="questionData.pendingAnswer", ng-disabled="!questionData.course || !questionData.question", type="submit", ng-click="saveEdits('pending')") Save
+                        div(ng-messages)
+                            div(ng-show="!questionData.course || !questionData.question") You must select a course and define question text before saving this answer.
+                            
+                p.editable-text#pendingAnswerTextPreview(ng-bind-html="questionData.pendingAnswer", 
+                    ng-if="showPendingAnswerPreview", 
+                    ng-click="editField('pending')", 
+                    aria-label="Edited pending answer text preview")
+                md-button(ng-if="showCurrentAnswerPreview", ng-click="togglePreview('pending')") Show Editor
+                md-button.md-accent(ng-if="showCurrentAnswerPreview", ng-click="discardEdits('pending')") Discard Edits
+                md-button.md-primary(ng-if="showCurrentAnswerPreview", ng-disabled="!questionData.course || !questionData.question", type="submit", ng-click="saveEdits('pending')") Save
+                    
+        div(flex="20", layout-align="space-between end", layout="column")
+            div
+                md-switch(name="publish-status", 
+                    aria-label="Question publishing status", 
+                    ng-model="questionData.isPublished", 
+                    ng-change="togglePublishStatus()", 
+                    layout-align="end center", 
+                    ng-disabled="!questionData.question || !questionData.currentAnswer")
+                span.float-right(for="publish-status", layout-align="start ", ng-bind="questionData.isPublished ? 'Published' : 'Unpublished'")
+                md-tooltip(ng-if="questionData.isPublished", md-direction="left") This question is "Published" and the current "Question" and "Answer" are visible to the student LMS. Click to "Unpublish" immediately.
+                md-tooltip(ng-if="!questionData.isPublished && questionData.status == 'approved'", md-direction="left") This question is "Unpublished" and is currently not visible to the student LMS. Click to "Publish" immediately.
+                md-tooltip(ng-if="!questionData.isPublished && questionData.status !== 'approved'", md-direction="left") Question and an approved answer are required and must be saved to publish this question.
+                        
+    ng-form(name="metadata")
+        md-content(layout-padding)
+            h2.md-headline Metadata
+            div(layout="row")
+                h3.md-title(flex="15") Course
+                md-input-container.md-block(md-no-float, flex, ng-if="!courses[0].course")
+                    label.sr-only(for="course") Course ID
+                    md-select(no-grow, ng-model="questionData.course", ng-change="updatePermission()")
+                        md-option(ng-repeat="course in courses", ng-value="course.id", ng-bind="course.name")
+            
+            div(layout="row")
+                h3.md-title(flex="15") Autolaunch
+                md-input-container.md-block(md-no-float, flex)
+                    label.sr-only(for="quicklaunch") Autolaunch
+                    input(id="quicklaunch", name="quicklaunch", type="text", ng-model="questionData.quicklaunch", placeholder="Autolaunch Lesson ID")
+            
+            div(layout="row")
+                h3.md-title(flex="15") Keywords
+                md-chips(input-aria-label="Add keywords", 
+                    delete-button-label="Delete keyword", 
+                    flex, ng-model="questionData.keywords", 
+                    readonly="false", removable="true",
+                    md-enable-chip-edit="true", placeholder="Add keywords...")
+                                    
+            div(layout="row", flex, layout-align="end center")
+                md-button.md-primary.md-raised(ng-disabled="!questionData.question || !questionData.course", type="submit", ng-click="saveQuestion()") Save
+
+            // Sorry for the inline style.
+            div(layout="row", flex, layout-align="end center", style="margin-top: 0; padding-top: 0;")
+                p.error(ng-if="metadata.$dirty && !questionData.course", style="margin-top: 0;") You must set a course before saving. 
+                p.error(ng-if="metadata.$dirty && !(questionData.question || questionData.editedQuestion)", style="margin-top: 0;") You must set question text before saving.
+    
+    div(layout-margin, layout="row" layout-align="center center")
+        md-button.md-warn(ng-if="questionData.id !== 'new'", ng-click="showConfirmDelete($event)") Delete Question
+
+    
