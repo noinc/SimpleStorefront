@@ -19,14 +19,32 @@ The project has been scaffolded using Symfony 3.0 and any additions should follo
 	System should allow guest users to buy products
 
 ## Instructions for running the project:
-	1. Start the vagrant box using the provided Vagrantfile: vagrant up
-	2. After the vagrant box starts, ssh into it: vagrant ssh
-	3. Inside the vagrant, cd into the SimpleStorefront: cd SimpleStorefront
-	4. Inside the vagrant, run the install script: composer install
-	5. Inside the vagrant, initialize the database: php bin/console doctrine:schema:update --force
-	6. Inside the vagrant, load data fixtures: php bin/console doctrine:fixtures:load
+	1. Start the vagrant box using the provided Vagrantfile: ``vagrant up``
+	2. After the vagrant box starts, ssh into it: ``vagrant ssh``
+	3. Inside the vagrant, cd into the SimpleStorefront: ``cd SimpleStorefront``
+	4. Inside the vagrant, run the install script: ``composer install``
+	5. Inside the vagrant, initialize the database: ``php bin/console doctrine:schema:update --force``
+	6. Inside the vagrant, load data fixtures: ``php bin/console doctrine:fixtures:load``
 	7. Open up a terminal to connect to the vagrant: http://192.168.33.10/
 	8. Attempt login with default credentials username: "admin", password: "password"
+
+## Frontend Structure:
+
+The frontend source files are contained in the ``src/NoInc/SimpleStorefront/ViewBundle/Resources/src/`` directory. Your vagrant should have a few utilities installed to make development a breeze. Upon intialization, the default and base frontend should be built an installed. As you work on the frontend, you will need to re-compile the views, styles and scripts. You can use the following steps to do so:
+	1. After the vagrant box starts, ssh into it: ``vagrant ssh``
+	2. Inside the vagrant, cd into the SimpleStorefront: ``cd SimpleStorefront``
+	3. Use gulp to compile: ``gulp --gulpfile src/NoInc/SimpleStorefront/ViewBundle/gulpfile.js``
+		a. If you are actively developing, and wish to automatically recompile as you work, run: ``gulp watch --develop --gulpfile src/NoInc/SimpleStorefront/ViewBundle/gulpfile.js``
+
+Note that adding the ``--develop`` switch will prevent the javascript linter from cancelling the build upon errors.
+
+All Javascript should be in the ``src/scripts`` folder, all views are written in Pug in ``src/views``, and styles in ``src/scss``.
+
+Javascript should conform to [the AirBnB Javascript styleguide](https://github.com/airbnb/javascript) with some modifications (see the .eslintrc file).
+Views are written in [HTML pre-processed language Pug](https://pugjs.org/language/attributes.html)
+Styles are written in [SCSS](http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html)
+
+If you are curious with how files are compiled, linked and placed, look at the ``gulpfile.js``, which powers most of the frontend build chain.
 
 ## The project is not finished, however.  The following is a list of tasks that ought to be completed:
 	Beginner:
