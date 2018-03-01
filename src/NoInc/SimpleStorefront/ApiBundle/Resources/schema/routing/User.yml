@@ -30,7 +30,7 @@ types:
           groups:
           - set_user
       item_delete:
-        roles: ROLE_SUPER_ADMIN
+        access_control: ROLE_SUPER_ADMIN
         normalization_context:
           groups:
           - get_user
