@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ApiResource(iri="http://schema.org/Thing", collectionOperations={"get"={"method"="GET", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "post"={"method"="POST", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}}, itemOperations={"get"={"method"="GET", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "put"={"method"="PUT", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "delete"={"method"="DELETE", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}})
+ * @ApiResource(iri="http://schema.org/Thing", collectionOperations={"get"={"normalization_context"={"groups"={"get_recipe_ingredient"}}, "denormalization_context"={"groups"={"set_recipe_ingredient"}}, "method"="GET"}, "post"={"normalization_context"={"groups"={"get_recipe_ingredient"}}, "denormalization_context"={"groups"={"set_recipe_ingredient"}}, "method"="POST"}}, itemOperations={"get"={"normalization_context"={"groups"={"get_recipe_ingredient"}}, "denormalization_context"={"groups"={"set_recipe_ingredient"}}, "method"="GET"}, "put"={"normalization_context"={"groups"={"get_recipe_ingredient"}}, "denormalization_context"={"groups"={"set_recipe_ingredient"}}, "method"="PUT"}, "delete"={"normalization_context"={"groups"={"get_recipe_ingredient"}}, "denormalization_context"={"groups"={"set_recipe_ingredient"}}, "method"="DELETE"}})
  * The most generic type of item.
  *
  * @see http://schema.org/Thing Documentation on Schema.org
@@ -30,7 +30,7 @@ class RecipeIngredient
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"output", "input"})
+     * @Groups({"get_recipe_ingredient", "set_recipe_ingredient", "get_recipe", "set_recipe", "get_product"})
      *
      * @var float
      *
@@ -41,7 +41,7 @@ class RecipeIngredient
     /**
      * @ORM\ManyToOne(targetEntity="NoInc\SimpleStorefront\ApiBundle\Entity\Ingredient")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"output", "input"})
+     * @Groups({"get_recipe_ingredient", "set_recipe_ingredient", "get_recipe", "set_recipe", "get_product"})
      *
      * @var Ingredient|null
      */

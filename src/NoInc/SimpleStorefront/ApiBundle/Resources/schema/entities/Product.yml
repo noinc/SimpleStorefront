@@ -9,13 +9,14 @@ types:
 ###### Start Custom Fields 
       createdAt:
         range: DateTime
+        cardinality: (0..1)
         groups:
-        - output
-        - input
+        - get_product
+        - set_product
       recipe:
         range: Recipe
         cardinality: (*..1)
         groups:
-        - output
-        - input
+        - get_product
+        - set_product
 ###### End Custom Fields 

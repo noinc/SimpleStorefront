@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
-class DefaultController extends Controller
+class SecurityController extends Controller
 {
 
     /**
@@ -20,20 +20,20 @@ class DefaultController extends Controller
     public function homeAction()
     {
         if ( $this->getUser() ) {
-            return new RedirectResponse('/app/recipes', 301);
+            return new RedirectResponse('/app/recipes');
         }
 
-        return new RedirectResponse('/login', 307);
+        return new RedirectResponse('/login');
     }
 
     /**
      * @Route("/login", name="get_login")
      * @Method("GET")
      */
-    public function getLoginAction(Request $request)
+    public function loginAction(Request $request)
     {
         if ( $this->getUser() ) {
-            return new RedirectResponse('/app/recipes', 301);
+            return new RedirectResponse('/app/recipes');
         }
 
         $error = null;
@@ -44,10 +44,21 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction(Request $request)
+    {
+        $this->get('security.token_storage')->setToken(null);
+        $this->get('request_stack')->getCurrentRequest()->getSession()->invalidate();
+
+        return new RedirectResponse('/login', 307);
+    }
+
+    /**
      * @Route("/login", name="post_login")
      * @Method("POST")
      */
-    public function postLoginAction(Request $request)
+    public function loginCheckAction(Request $request)
     {
         $username = $request->request->get('_username');
         $password = $request->request->get('_password');
@@ -57,9 +68,11 @@ class DefaultController extends Controller
         $user = $userManager->findUserByUsername($username);
 
         if (! $user) {
-            return new JsonResponse([
-                'error' => 'Username doesnt exists'
-            ], Response::HTTP_UNAUTHORIZED);
+            $error = 'Username doesnt exists';
+
+            return $this->render('NoIncSimpleStorefrontViewBundle::error.html.twig', [
+                'error' => $error
+            ]);
         }
 
         $factory = $this->get('security.encoder_factory');
@@ -67,9 +80,11 @@ class DefaultController extends Controller
         $salt = $user->getSalt();
 
         if (! $encoder->isPasswordValid($user->getPassword(), $password, $salt)) {
-            return new JsonResponse([
-                'error' => 'Username or password is not valid'
-            ], Response::HTTP_UNAUTHORIZED);
+            $error = 'Username or password is not valid';
+
+            return $this->render('NoIncSimpleStorefrontViewBundle::error.html.twig', [
+                'error' => $error
+            ]);
         }
 
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
@@ -79,8 +94,6 @@ class DefaultController extends Controller
         $event = new InteractiveLoginEvent($request, $token);
         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
-        return new JsonResponse([
-            'success' => true
-        ]);
+        return new RedirectResponse('/app/recipes');
     }
 }

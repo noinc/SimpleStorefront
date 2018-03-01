@@ -3,7 +3,7 @@ noinc_simplestorefront_viewbundle_html_home:
     type:     annotation
 
 no_inc_simplestorefront_view_bundle_html_index:
-    path: /
+    path: /app
     defaults:
         _controller: 'FrameworkBundle:Template:template'
         template: '@NoIncSimpleStorefrontViewBundle/partials/base.html.twig'

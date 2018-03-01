@@ -1,38 +1,38 @@
 types:
-  Product:
+  RecipeIngredient:
     defaultOperations:
       collection_get:
         normalization_context:
           groups:
-          - get_product
+          - get_recipe_ingredient
         denormalization_context:
           groups:
-          - set_product
+          - set_recipe_ingredient
       collection_post:
         normalization_context:
           groups:
-          - get_product
+          - get_recipe_ingredient
         denormalization_context:
           groups:
-          - set_product
+          - set_recipe_ingredient
       item_get:
         normalization_context:
           groups:
-          - get_product
+          - get_recipe_ingredient
         denormalization_context:
           groups:
-          - set_product
+          - set_recipe_ingredient
       item_put:
         normalization_context:
           groups:
-          - get_product
+          - get_recipe_ingredient
         denormalization_context:
           groups:
-          - set_product
+          - set_recipe_ingredient
       item_delete:
         normalization_context:
           groups:
-          - get_product
+          - get_recipe_ingredient
         denormalization_context:
           groups:
-          - set_product
+          - set_recipe_ingredient

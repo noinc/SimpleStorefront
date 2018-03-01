@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('SimpleStorefront'); //should be 'gene_ic_applli_cation'
+        $treeBuilder->root('SimpleStorefront');
         return $treeBuilder;
     }
 }

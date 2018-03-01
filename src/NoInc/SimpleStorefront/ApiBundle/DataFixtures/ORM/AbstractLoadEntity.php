@@ -9,6 +9,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 abstract class AbstractLoadEntity extends Fixture implements ContainerAwareInterface
 {
+
     protected $container;
 
     protected $accessor;
@@ -60,5 +61,4 @@ abstract class AbstractLoadEntity extends Fixture implements ContainerAwareInter
             $this->setReference($reference, $entity);
         }
     }
-
 }

@@ -1,0 +1,4 @@
+services:
+    'NoInc\SimpleStorefront\ApiBundle\Listener\ProductListener':
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }

@@ -11,22 +11,32 @@ types:
         range: Text
         ormColumn: type="string", length=180, nullable=false
         groups:
-        - output
-        - input
+        - get_ingredient
+        - set_ingredient
+        - get_recipe
+        - get_recipe_ingredient
+        - get_product
       price:
         range: Float
         groups:
-        - output
-        - input
+        - get_ingredient
+        - set_ingredient
+        - get_recipe
+        - set_recipe
+        - get_recipe_ingredient
+        - get_product
       measure:
         range: Text
         ormColumn: type="string", length=180, nullable=false
         groups:
-        - output
-        - input
+        - get_ingredient
+        - set_ingredient
+        - get_recipe
+        - get_recipe_ingredient
+        - get_product
       stock:
-        range: Float
+        range: Number
         groups:
-        - output
-        - input
+        - get_ingredient
+        - set_ingredient
 ###### End Custom Fields 

@@ -2,12 +2,40 @@ types:
   Ingredient:
     defaultOperations:
       collection_get:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_ingredient
+        denormalization_context:
+          groups:
+          - set_ingredient
       collection_post:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_ingredient
+        denormalization_context:
+          groups:
+          - set_ingredient
       item_get:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_ingredient
+        denormalization_context:
+          groups:
+          - set_ingredient
       item_put:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_ingredient
+        denormalization_context:
+          groups:
+          - set_ingredient
       item_delete:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_ingredient
+        denormalization_context:
+          groups:
+          - set_ingredient
+    itemOperations:
+      purchase:
+        route_name: put_ingredient_purchase

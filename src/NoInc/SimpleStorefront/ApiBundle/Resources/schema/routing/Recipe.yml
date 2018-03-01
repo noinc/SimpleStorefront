@@ -2,12 +2,22 @@ types:
   Recipe:
     defaultOperations:
       collection_get:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_recipe
+        denormalization_context:
+          groups:
+          - set_recipe
       collection_post:
-        enabled: true
+        enabled: false
       item_get:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_recipe
+        denormalization_context:
+          groups:
+          - set_recipe
       item_put:
-        enabled: true
+        enabled: false
       item_delete:
-        enabled: true
+        enabled: false

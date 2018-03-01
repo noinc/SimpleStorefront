@@ -8,17 +8,19 @@ types:
         range: Text
         ormColumn: type="string", length=180, nullable=false
         groups:
-        - output
-        - input
+        - get_recipe
+        - set_recipe
       price:
         range: Float
         groups:
-        - output
-        - input
+        - get_recipe
+        - set_recipe
+        - get_product
       recipeIngredient:
         range: RecipeIngredient
         cardinality: (0..*)
         groups:
-        - output
-        - input
+        - get_recipe
+        - set_recipe
+        - get_product
 ###### End Custom Fields 

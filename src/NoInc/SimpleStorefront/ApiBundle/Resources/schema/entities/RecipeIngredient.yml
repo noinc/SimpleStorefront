@@ -7,12 +7,18 @@ types:
       quantity:
         range: Float
         groups:
-        - output
-        - input
+        - get_recipe_ingredient
+        - set_recipe_ingredient
+        - get_recipe
+        - set_recipe
+        - get_product
       ingredient:
         range: Ingredient
         cardinality: (*..1)
         groups:
-        - output
-        - input
+        - get_recipe_ingredient
+        - set_recipe_ingredient
+        - get_recipe
+        - set_recipe
+        - get_product
 ###### End Custom Fields 

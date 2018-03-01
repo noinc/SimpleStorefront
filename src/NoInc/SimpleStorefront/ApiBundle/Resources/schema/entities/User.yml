@@ -12,8 +12,8 @@ types:
       currentCapital:
         range: Float
         groups:
-        - output
-        - input
+        - get_user
+        - set_user
 ###### End Custom Fields 
 ###### Start FOSUserBundle fields
       username:
@@ -25,8 +25,8 @@ types:
         readable: false
         writable: false
         groups:
-        - output
-        - input
+        - get_user
+        - set_user
       email:
         range: Text
         typeHint: false
@@ -36,8 +36,8 @@ types:
         readable: false
         writable: false
         groups:
-        - output
-        - input
+        - get_user
+        - set_user
       enabled:
         range: Boolean
         typeHint: false
@@ -47,7 +47,7 @@ types:
         readable: false
         writable: false
         groups:
-        - output
+        - get_user
       salt:
         range: Text
         typeHint: false
@@ -73,7 +73,7 @@ types:
         readable: false
         writable: false
         groups:
-        - input
+        - set_user
       lastLogin:
         range: DateTime
         typeHint: false
@@ -83,7 +83,7 @@ types:
         readable: false
         writable: false
         groups:
-        - output
+        - get_user
       confirmationToken:
         range: Text
         typeHint: false

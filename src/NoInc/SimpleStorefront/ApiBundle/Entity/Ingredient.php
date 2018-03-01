@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ApiResource(iri="http://schema.org/Thing", collectionOperations={"get"={"method"="GET", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "post"={"method"="POST", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}}, itemOperations={"get"={"method"="GET", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "put"={"method"="PUT", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "delete"={"method"="DELETE", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}})
+ * @ApiResource(iri="http://schema.org/Thing", collectionOperations={"get"={"normalization_context"={"groups"={"get_ingredient"}}, "denormalization_context"={"groups"={"set_ingredient"}}, "method"="GET"}, "post"={"normalization_context"={"groups"={"get_ingredient"}}, "denormalization_context"={"groups"={"set_ingredient"}}, "method"="POST"}}, itemOperations={"purchase"={"route_name"="put_ingredient_purchase"}, "get"={"normalization_context"={"groups"={"get_ingredient"}}, "denormalization_context"={"groups"={"set_ingredient"}}, "method"="GET"}, "put"={"normalization_context"={"groups"={"get_ingredient"}}, "denormalization_context"={"groups"={"set_ingredient"}}, "method"="PUT"}, "delete"={"normalization_context"={"groups"={"get_ingredient"}}, "denormalization_context"={"groups"={"set_ingredient"}}, "method"="DELETE"}})
  * The most generic type of item.
  *
  * @see http://schema.org/Thing Documentation on Schema.org
@@ -35,7 +35,7 @@ class Ingredient
     /**
      * @ORM\Column(type="string", length=180, nullable=false)
      * @ApiProperty(iri="http://schema.org/name")
-     * @Groups({"output", "input"})
+     * @Groups({"get_ingredient", "set_ingredient", "get_recipe", "get_recipe_ingredient", "get_product"})
      *
      * @var string|null the name of the item
      */
@@ -43,7 +43,7 @@ class Ingredient
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"output", "input"})
+     * @Groups({"get_ingredient", "set_ingredient", "get_recipe", "set_recipe", "get_recipe_ingredient", "get_product"})
      *
      * @var float
      *
@@ -53,7 +53,7 @@ class Ingredient
 
     /**
      * @ORM\Column(type="string", length=180, nullable=false)
-     * @Groups({"output", "input"})
+     * @Groups({"get_ingredient", "set_ingredient", "get_recipe", "get_recipe_ingredient", "get_product"})
      *
      * @var string
      *
@@ -63,7 +63,7 @@ class Ingredient
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"output", "input"})
+     * @Groups({"get_ingredient", "set_ingredient"})
      *
      * @var float
      *
@@ -112,14 +112,20 @@ class Ingredient
         return $this->measure;
     }
 
-    public function setStock(float $stock): self
+    /**
+     * @param float $stock
+     */
+    public function setStock($stock): self
     {
         $this->stock = $stock;
 
         return $this;
     }
 
-    public function getStock(): float
+    /**
+     * @return float
+     */
+    public function getStock()
     {
         return $this->stock;
     }

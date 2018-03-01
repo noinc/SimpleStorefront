@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"username"})
  * @ORM\Entity
  * @ORM\Table(name="users")
- * @ApiResource(iri="http://schema.org/Thing", collectionOperations={"get"={"method"="GET", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "post"={"method"="POST", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}}, itemOperations={"current"={"route_name"="get_user_current"}, "get"={"method"="GET", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "put"={"method"="PUT", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "delete"={"method"="DELETE", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}})
+ * @ApiResource(iri="http://schema.org/Thing", collectionOperations={"current"={"route_name"="get_user_current"}, "get"={"normalization_context"={"groups"={"get_user"}}, "denormalization_context"={"groups"={"set_user"}}, "method"="GET"}, "post"={"normalization_context"={"groups"={"get_user"}}, "denormalization_context"={"groups"={"set_user"}}, "method"="POST"}}, itemOperations={"get"={"normalization_context"={"groups"={"get_user"}}, "denormalization_context"={"groups"={"set_user"}}, "method"="GET"}, "put"={"normalization_context"={"groups"={"get_user"}}, "denormalization_context"={"groups"={"set_user"}}, "method"="PUT"}, "delete"={"normalization_context"={"groups"={"get_user"}}, "denormalization_context"={"groups"={"set_user"}}, "method"="DELETE"}})
  * The most generic type of item.
  *
  * @see http://schema.org/Thing Documentation on Schema.org
@@ -34,7 +34,7 @@ class User extends \FOS\UserBundle\Model\User
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"output", "input"})
+     * @Groups({"get_user", "set_user"})
      *
      * @var float
      *
@@ -43,21 +43,21 @@ class User extends \FOS\UserBundle\Model\User
     protected $currentCapital;
 
     /**
-     * @Groups({"output", "input"})
+     * @Groups({"get_user", "set_user"})
      *
      * @var string|null
      */
     protected $username;
 
     /**
-     * @Groups({"output", "input"})
+     * @Groups({"get_user", "set_user"})
      *
      * @var string|null
      */
     protected $email;
 
     /**
-     * @Groups({"output"})
+     * @Groups({"get_user"})
      *
      * @var bool|null
      */
@@ -74,14 +74,14 @@ class User extends \FOS\UserBundle\Model\User
     protected $password;
 
     /**
-     * @Groups({"input"})
+     * @Groups({"set_user"})
      *
      * @var string|null
      */
     protected $plainPassword;
 
     /**
-     * @Groups({"output"})
+     * @Groups({"get_user"})
      *
      * @var \DateTimeInterface|null
      *

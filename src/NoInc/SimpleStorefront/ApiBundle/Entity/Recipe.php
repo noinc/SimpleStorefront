@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ApiResource(iri="http://schema.org/Recipe", collectionOperations={"get"={"method"="GET", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "post"={"method"="POST", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}}, itemOperations={"get"={"method"="GET", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "put"={"method"="PUT", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}, "delete"={"method"="DELETE", "normalization_context"={"groups"={"output"}}, "denormalization_context"={"groups"={"input"}}}})
+ * @ApiResource(iri="http://schema.org/Recipe", collectionOperations={"get"={"normalization_context"={"groups"={"get_recipe"}}, "denormalization_context"={"groups"={"set_recipe"}}, "method"="GET"}}, itemOperations={"get"={"normalization_context"={"groups"={"get_recipe"}}, "denormalization_context"={"groups"={"set_recipe"}}, "method"="GET"}})
  * A recipe. For dietary restrictions covered by the recipe, a few common restrictions are enumerated via \[\[suitableForDiet\]\]. The \[\[keywords\]\] property can also be used to add more detail.
  *
  * @see http://schema.org/Recipe Documentation on Schema.org
@@ -34,7 +34,7 @@ class Recipe
     /**
      * @ORM\Column(type="string", length=180, nullable=false)
      * @ApiProperty(iri="http://schema.org/name")
-     * @Groups({"output", "input"})
+     * @Groups({"get_recipe", "set_recipe"})
      *
      * @var string|null the name of the item
      */
@@ -42,7 +42,7 @@ class Recipe
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"output", "input"})
+     * @Groups({"get_recipe", "set_recipe", "get_product"})
      *
      * @var float
      *
@@ -54,7 +54,7 @@ class Recipe
      * @ORM\ManyToMany(targetEntity="NoInc\SimpleStorefront\ApiBundle\Entity\RecipeIngredient")
      * @ORM\JoinTable(inverseJoinColumns={@ORM\JoinColumn(unique=true)})
      * @ApiProperty(iri="http://schema.org/recipeIngredient")
-     * @Groups({"output", "input"})
+     * @Groups({"get_recipe", "set_recipe", "get_product"})
      *
      * @var Collection<RecipeIngredient>|null A single ingredient used in the recipe, e.g. sugar, flour or garlic.
      */

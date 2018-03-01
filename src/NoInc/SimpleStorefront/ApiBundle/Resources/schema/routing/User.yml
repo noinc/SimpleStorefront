@@ -2,15 +2,41 @@ types:
   User:
     defaultOperations:
       collection_get:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_user
+        denormalization_context:
+          groups:
+          - set_user
       collection_post:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_user
+        denormalization_context:
+          groups:
+          - set_user
       item_get:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_user
+        denormalization_context:
+          groups:
+          - set_user
       item_put:
-        enabled: true
+        normalization_context:
+          groups:
+          - get_user
+        denormalization_context:
+          groups:
+          - set_user
       item_delete:
-        enabled: true
-    itemOperations:
+        roles: ROLE_SUPER_ADMIN
+        normalization_context:
+          groups:
+          - get_user
+        denormalization_context:
+          groups:
+          - set_user
+    collectionOperations:
       current:
-        route_name: "get_user_current"
+        route_name: get_user_current
