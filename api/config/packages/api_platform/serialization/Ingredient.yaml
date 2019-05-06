@@ -1,0 +1,30 @@
+App\Entity\Ingredient:
+    attributes:
+        id:
+            groups:
+            - cget_ingredient
+            - get_ingredient
+        measure:
+            groups:
+            - cget_ingredient
+            - get_ingredient
+            - post_ingredient
+            - put_ingredient
+        name:
+            groups:
+            - cget_ingredient
+            - get_ingredient
+            - post_ingredient
+            - put_ingredient
+        price:
+            groups:
+            - cget_ingredient
+            - get_ingredient
+            - post_ingredient
+            - put_ingredient
+        stock:
+            groups:
+            - cget_ingredient
+            - get_ingredient
+            - post_ingredient
+            - put_ingredient

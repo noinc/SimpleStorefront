@@ -22,4 +22,5 @@
 
 ###> Vagrant ###
 /.vagrant
+**/*.log
 ###< Vagrant ###

@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-ip_address= ENV['IPADDRESS']
+ip_address="192.168.33.25"
 
 script = <<SCRIPT
 echo "Provisioning virtual machine..."
@@ -14,7 +14,8 @@ echo "Installing Apache"
 apt-get install apache2 -y --force-yes
 
 echo "Installing PHP7"
-add-apt-repository -y ppa:ondrej/php
+apt-get install -y python-software-properties
+apt-add-repository -y ppa:ondrej/php
 apt-get update -y
 apt-get install -y php7.1
 apt-get install -y php7.1-curl
@@ -89,6 +90,7 @@ chown -R vagrant /home/vagrant/.ssh/id_rsa*
 chmod 600 /home/vagrant/.ssh/id_rsa*
 cat ~/.aws/credentials | grep 'aws' >> ~/.aws/config
 
+mkdir /home/vagrant/SimpleStorefront/var
 mkdir /home/vagrant/SimpleStorefront/var/log
 
 chown -R vagrant.vagrant /home/vagrant/SimpleStorefront
@@ -103,11 +105,11 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box = "ubuntu/xenial64"
+  #config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/xenial-server-cloudimg-amd64-vagrant-disk1.box"
 
-  config.vm.network :private_network, ip: (ip_address.nil? ? "192.168.33.16" : ip_address)
-  config.vm.network :public_network, :bridge => 'em1',:use_dhcp_assigned_default_route => true
+  config.vm.network :private_network, ip: "192.168.33.25"
+  #config.vm.network :public_network, :bridge => 'em1',:use_dhcp_assigned_default_route => true
 
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
