@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Ingredient
 {
+    const MEASURE_CUP = 'Cup';
+    const MEASURE_EACH = 'Each';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

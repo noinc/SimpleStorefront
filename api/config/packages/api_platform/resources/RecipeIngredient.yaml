@@ -1,0 +1,26 @@
+resources:
+    App\Entity\RecipeIngredient:
+        collectionOperations:
+            get:
+                normalization_context:
+                    groups:
+                    - cget_recipeingredient
+            post:
+                normalization_context:
+                    groups:
+                    - get_recipeingredient
+                denormalization_context:
+                    groups:
+                    - post_recipeingredient
+        itemOperations:
+            get:
+                normalization_context:
+                    groups:
+                    - get_recipeingredient
+            put:
+                normalization_context:
+                    groups:
+                    - get_recipeingredient
+                denormalization_context:
+                    groups:
+                    - put_recipeingredient

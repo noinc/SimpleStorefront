@@ -1,0 +1,21 @@
+App\Entity\RecipeIngredient:
+    attributes:
+        id:
+            groups:
+            - cget_recipeingredient
+            - get_recipeingredient
+        ingredient:
+            groups:
+            - post_recipeingredient
+            - put_recipeingredient
+            - recipeingredient_ingredient
+        quantity:
+            groups:
+            - cget_recipeingredient
+            - get_recipeingredient
+            - post_recipeingredient
+            - put_recipeingredient
+        recipe:
+            groups:
+            - post_recipeingredient
+            - recipeingredient_recipe

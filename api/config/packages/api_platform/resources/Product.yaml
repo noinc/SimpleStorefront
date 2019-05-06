@@ -1,0 +1,26 @@
+resources:
+    App\Entity\Product:
+        collectionOperations:
+            get:
+                normalization_context:
+                    groups:
+                    - cget_product
+            post:
+                normalization_context:
+                    groups:
+                    - get_product
+                denormalization_context:
+                    groups:
+                    - post_product
+        itemOperations:
+            get:
+                normalization_context:
+                    groups:
+                    - get_product
+            put:
+                normalization_context:
+                    groups:
+                    - get_product
+                denormalization_context:
+                    groups:
+                    - put_product

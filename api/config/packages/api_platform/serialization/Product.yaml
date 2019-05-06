@@ -1,0 +1,13 @@
+App\Entity\Product:
+    attributes:
+        id:
+            groups:
+            - cget_product
+            - get_product
+        createdAt:
+            groups:
+            - cget_product
+            - get_product
+        recipe:
+            groups:
+            - product_recipe

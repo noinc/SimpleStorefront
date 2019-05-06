@@ -1,0 +1,24 @@
+App\Entity\Recipe:
+    attributes:
+        id:
+            groups:
+            - cget_recipe
+            - get_recipe
+        name:
+            groups:
+            - cget_recipe
+            - get_recipe
+            - post_recipe
+            - put_recipe
+        price:
+            groups:
+            - cget_recipe
+            - get_recipe
+            - post_recipe
+            - put_recipe
+        products:
+            groups:
+            - recipe_products
+        recipeIngredients:
+            groups:
+            - recipe_recipeIngredients
