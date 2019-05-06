@@ -1,0 +1,132 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+ip_address= ENV['IPADDRESS']
+
+script = <<SCRIPT
+echo "Provisioning virtual machine..."
+echo "Updating aptitude"
+apt-get update -y
+
+echo "Installing Git"
+apt-get install git -y
+
+echo "Installing Apache"
+apt-get install apache2 -y --force-yes
+
+echo "Installing PHP7"
+add-apt-repository -y ppa:ondrej/php
+apt-get update -y
+apt-get install -y php7.1
+apt-get install -y php7.1-curl
+apt-get install -y php7.1-common
+apt-get install -y php7.1-cli
+apt-get install -y php7.1-readline
+apt-get install -y php7.1-xml
+apt-get install -y php7.1-zip
+apt-get install -y php7.1-mbstring
+
+echo "Installing php7-mysql"
+apt-get install -y php7.1-fpm
+apt-get install -y php7.1-mysql
+apt-get install -y php7.1-mysqlnd
+apt-get install -y php7.1-intl
+
+echo "Installing php7-memcached"
+apt-get install -y memcached
+apt-get install -y php7.1-memcached
+
+echo "Installing php7-mcrypt"
+apt-get install -y mcrypt
+apt-get install -y php7.1-mcrypt
+
+apt-get install -y supervisor
+
+echo "Installing node and npm"
+echo "Installing from NodeSource https://github.com/nodesource/distributions#debinstall matching EB config version node 6"
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Installing via NPM so we don't have to load another debian source
+echo "Installing gulp and yarn globally"
+npm install -g gulp yarn
+
+echo "Installing Composer"
+curl -sS https://getcomposer.org/installer | /usr/bin/php -- --install-dir=/usr/bin --filename=composer
+
+echo "Installing mysql-server"
+apt-get install debconf-utils -y > /dev/null
+debconf-set-selections <<< "mysql-server mysql-server/root_password password 12345"
+debconf-set-selections <<< "mysql-server mysql-server/root_password_again password 12345"
+apt-get install mysql-server -y > /dev/null
+
+mysql -uroot -p12345 -e "SET PASSWORD = PASSWORD('');"
+
+echo "Enabling mod-rewrite"
+a2enmod rewrite
+
+echo "Configuring Apache"
+perl -p -i -e 's/www-data/vagrant/ge;' /etc/apache2/envvars
+
+cat <<EOF > /etc/apache2/sites-available/000-default.conf
+<VirtualHost *:80>
+  DocumentRoot /home/vagrant/SimpleStorefront/public
+
+  <Directory /home/vagrant/SimpleStorefront/public>
+    # enable the .htaccess rewrites
+    AllowOverride All
+    Require all granted
+  </Directory>
+
+  ServerAdmin webmaster@localhost
+
+  ErrorLog /home/vagrant/SimpleStorefront/var/log/error.log
+  CustomLog /home/vagrant/SimpleStorefront/var/log/access.log combined
+</VirtualHost>
+EOF
+
+echo "Credentials Setup"
+chown -R vagrant /home/vagrant/.ssh/id_rsa*
+chmod 600 /home/vagrant/.ssh/id_rsa*
+cat ~/.aws/credentials | grep 'aws' >> ~/.aws/config
+
+mkdir /home/vagrant/SimpleStorefront/var/log
+
+chown -R vagrant.vagrant /home/vagrant/SimpleStorefront
+
+echo "Restarting Apache2"
+service apache2 restart
+
+SCRIPT
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+
+  config.vm.network :private_network, ip: (ip_address.nil? ? "192.168.33.16" : ip_address)
+  config.vm.network :public_network, :bridge => 'em1',:use_dhcp_assigned_default_route => true
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    vb.customize ["modifyvm", :id, "--cpus", 4]
+  end
+
+  config.vm.synced_folder ".", "/home/vagrant/SimpleStorefront", type: "rsync", rsync__auto: true, rsync__exclude: [
+ 	".git/",
+ 	".vagrant/",
+ 	"var/cache/",
+ 	"vendor/"
+  ]
+
+  #SSH Credentials
+  config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
+  config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
+
+  config.vm.provision "shell", inline: script
+
+end
