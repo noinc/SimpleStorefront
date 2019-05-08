@@ -1,1 +1,1 @@
-export const ENTRYPOINT = process.env.REACT_APP_API_ENTRYPOINT;
+export const ENTRYPOINT = "192.168.33.25";
