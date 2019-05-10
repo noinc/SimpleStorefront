@@ -1,7 +1,7 @@
 # My Simple Storefront
 --------------------
 The goal of this training project is to provide a very basic storefront layout for someone selling something.
-The project has been scaffolded using Symfony and API Platform 2.1.0.
+The project has been scaffolded using API Platform 2.1.0 and React.
 
 ## Wireframes:
 https://kv6y1e.axshare.com/#g=1&p=home
