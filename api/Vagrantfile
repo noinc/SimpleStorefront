@@ -61,6 +61,7 @@ debconf-set-selections <<< "mysql-server mysql-server/root_password_again passwo
 apt-get install mysql-server -y > /dev/null
 
 mysql -uroot -p12345 -e "SET PASSWORD = PASSWORD('');"
+mysql -uroot -e "CREATE DATABASE SimpleStorefront;"
 
 echo "Enabling mod-rewrite"
 a2enmod rewrite
@@ -126,8 +127,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ]
 
   #SSH Credentials
-  config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
-  config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
+  # config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
+  # config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
 
   config.vm.provision "shell", inline: script
 

@@ -29,8 +29,9 @@ Note: You may use whichever tools you would like.
 2. Start the vagrant box using the provided Vagrantfile: ``vagrant up``
 3. After the vagrant box starts, ssh into it: ``vagrant ssh``
 4. Inside the vagrant, cd into the SimpleStorefront: ``cd SimpleStorefront``
-5. Inside the vagrant, run the install script: ``composer install``
+5. Inside the vagrant, run the install script: ``composer update``
 6. Inside the vagrant, initialize the database with fixtures: ``composer generate-fixtures``
+6. Inside the vagrant, install assets needed for API Platform: ``php bin/console assets:install``
 7. Open up a browser to view the API documentation: ``http://192.168.33.25/api``
 
 ## Backend Structure:
