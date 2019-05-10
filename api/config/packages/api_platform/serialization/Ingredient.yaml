@@ -4,6 +4,12 @@ App\Entity\Ingredient:
             groups:
             - cget_ingredient
             - get_ingredient
+        image:
+            groups:
+            - cget_ingredient
+            - get_ingredient
+            - post_ingredient
+            - put_ingredient
         measure:
             groups:
             - cget_ingredient

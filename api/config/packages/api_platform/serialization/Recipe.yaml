@@ -4,6 +4,12 @@ App\Entity\Recipe:
             groups:
             - cget_recipe
             - get_recipe
+        image:
+            groups:
+            - cget_recipe
+            - get_recipe
+            - post_recipe
+            - put_recipe
         name:
             groups:
             - cget_recipe
