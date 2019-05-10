@@ -3,6 +3,9 @@
 The goal of this training project is to provide a very basic storefront layout for someone selling something.
 The project has been scaffolded using Symfony and API Platform 2.1.0.
 
+## Wireframes:
+https://kv6y1e.axshare.com/#g=1&p=home
+
 ## System Requirements:
 
 1. Vagrant- https://www.vagrantup.com/docs/installation/
