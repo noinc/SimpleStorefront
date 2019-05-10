@@ -1,1 +1,0 @@
-{"rsync":{"/home/vagrant/SimpleStorefront":{"type":"rsync","rsync__auto":true,"rsync__exclude":[".git/",".vagrant/","var/cache/","vendor/"],"guestpath":"/home/vagrant/SimpleStorefront","hostpath":"C:/Users/corey/workspace/SimpleStorefront","disabled":false,"__vagrantfile":true,"auto":true,"exclude":[".git/",".vagrant/","var/cache/","vendor/"],"owner":"ubuntu","group":"ubuntu"}}}
