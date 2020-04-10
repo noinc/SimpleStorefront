@@ -27,19 +27,19 @@ chmod -R aou+rw /var/log/redis
 echo "Installing PHP7"
 add-apt-repository -y ppa:ondrej/php
 apt-get update
-apt-get install -y php7.0
-apt-get install -y php7.0-mcrypt
-apt-get install -y php7.0-gd
-apt-get install -y libapache2-mod-php7.0
-apt-get install -y php7.0-curl
-apt-get install -y php7.0-common
-apt-get install -y php7.0-cli
-apt-get install -y php7.0-mysql
-apt-get install -y php7.0-mysqlnd
-apt-get install -y php7.0-readline
+apt-get install -y php7.1
+apt-get install -y php7.1-mcrypt
+apt-get install -y php7.1-gd
+apt-get install -y libapache2-mod-php7.1
+apt-get install -y php7.1-curl
+apt-get install -y php7.1-common
+apt-get install -y php7.1-cli
+apt-get install -y php7.1-mysql
+apt-get install -y php7.1-mysqlnd
+apt-get install -y php7.1-readline
 apt-get install -y php-redis
-apt-get install -y php7.0-xml
-apt-get install -y php7.0-zip
+apt-get install -y php7.1-xml
+apt-get install -y php7.1-zip
 
 echo "Installing Composer"
 curl -sS https://getcomposer.org/installer | /usr/bin/php -- --install-dir=/usr/bin --filename=composer
@@ -48,7 +48,7 @@ echo "Installing mysql-server"
 apt-get install debconf-utils -y > /dev/null
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password toor'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password toor'
-apt-get install mysql-server-5.6 -y > /dev/null
+apt-get install mysql-server-5.7 -y > /dev/null
 mysql -uroot -ptoor -e "create database simple_storefront"
 mysql -uroot -ptoor -e "SET PASSWORD = PASSWORD('');"
 
@@ -119,8 +119,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box = "ubuntu/xenial64"
 
   config.vm.network :private_network, ip: "192.168.33.10"
 

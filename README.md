@@ -21,10 +21,11 @@ The project has been scaffolded using Symfony 3.0 and any additions should follo
 ## Instructions for running the project:
 	1. Start the vagrant box using the provided Vagrantfile: vagrant up
 	2. After the vagrant box starts, ssh into it: vagrant ssh
-	3. Inside the vagrant, run the initialize script: initialize
-	4. Inside the vagrant, run the fixtures script: fixtures
-	5. Inside the vagrant, run the clean script: clean
-	6. Open up a terminal to connect to the vagrant: http://192.168.33.10/
+	3. Inside the vagrant, move to the SimpleStorefront directory: cd SimpleStorefront
+	4. Inside the vagrant, run the initialize script: initialize
+	5. Inside the vagrant, run the fixtures script: fixtures
+	6. Inside the vagrant, run the clean script: clean  # Note this may need to be ran again after UI changes
+	7. Open up a terminal to connect to the vagrant: http://192.168.33.10/
 
 ## The project is not finished, however.  The following is a list of tasks that ought to be completed:
 	Beginner:
